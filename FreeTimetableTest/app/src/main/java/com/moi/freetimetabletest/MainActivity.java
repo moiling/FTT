@@ -1,6 +1,7 @@
 package com.moi.freetimetabletest;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -10,18 +11,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
+import com.gc.materialdesign.views.ButtonFlat;
 import com.gc.materialdesign.widgets.SnackBar;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends ActionBarActivity{
+public class MainActivity extends ActionBarActivity implements View.OnClickListener{
 
     private MaterialMenuDrawable materialMenu;
 
@@ -34,6 +39,18 @@ public class MainActivity extends ActionBarActivity{
     private TextView textViewHint;
 
     private SnackBar snackbar;
+
+    private String tableName;
+
+    private LinearLayout createTableLayout;
+
+    private EditText editText;
+
+    private ButtonFlat createButton;
+
+    private ButtonFlat cancelButton;
+
+    private InputMethodManager inputMethodManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -48,13 +65,19 @@ public class MainActivity extends ActionBarActivity{
 
     }
 
+    /**
+     * 初始化控件
+     */
     private void init() {
+        // 当listview中没有item的时候显示的背景提示
         textViewHint = (TextView) findViewById(R.id.tv_hint_add_table);
+        // 判断提示是否出现（当list为空时）
         if (tableList.isEmpty()) {
             textViewHint.setVisibility(View.VISIBLE);
         } else {
             textViewHint.setVisibility(View.GONE);
         }
+        // 创建listview
         mListView = (ListView) findViewById(R.id.list_view);
         adapter = new TableListAdapter(MainActivity.this, R.layout.item_table_list, tableList);
         mListView.setAdapter(adapter);
@@ -81,11 +104,21 @@ public class MainActivity extends ActionBarActivity{
             }
         });
 
+        createTableLayout = (LinearLayout) findViewById(R.id.ll_create);
+        createTableLayout.setVisibility(View.GONE);
+        editText = (EditText) findViewById(R.id.ed_table);
+        createButton = (ButtonFlat) findViewById(R.id.bt_create);
+        cancelButton = (ButtonFlat) findViewById(R.id.bt_cancel);
+        createButton.setOnClickListener(this);
+        cancelButton.setOnClickListener(this);
+
     }
 
+    /**
+     * 设置Toolbar
+     */
     private void setToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
         // App Logo
         //toolbar.setLogo(R.mipmap.ic_launcher);
         // Title
@@ -93,10 +126,19 @@ public class MainActivity extends ActionBarActivity{
         // Sub Title
         //toolbar.setSubtitle("  Choose Timetable");
         setSupportActionBar(toolbar);
-
+        // Toolbar上最左边按钮的点击事件
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 // Handle your drawable state here
+                /**
+                 * 这一大串switch：
+                 * 默认初始式样为≡：1、当list中没有item时：≡→√→≡（循环没有作用）
+                 *                                         ┌→当snackBar消失后点击────────────────────┐
+                 *                                         │                                             ↓
+                 *                2、当list中有item时：≡→×→√（所有item抖动）→当snackBar存在时点击┐        ≡（循环）
+                 *                                      │                                      ↓         ↑
+                 *                                      └→弹出snackBar→Yes───────────→清空items→判断显示背景hint
+                 */
                 switch (materialMenu.getIconState()) {
                     case BURGER:
                         if (!tableList.isEmpty()) {
@@ -161,20 +203,50 @@ public class MainActivity extends ActionBarActivity{
         toolbar.setOnMenuItemClickListener(onMenuItemClickListener);
     }
 
+    /**
+     * Toolbar item的点击事件
+     */
     private Toolbar.OnMenuItemClickListener onMenuItemClickListener = new Toolbar.OnMenuItemClickListener() {
 
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
+                //创建一个新的list item（这里还没做好，不能命名和保存到数据库）
                 case R.id.action_edit:
-                    Table table = new Table("NEW TABLE");
-                    tableList.add(table);
-                    if (tableList.isEmpty()) {
-                        textViewHint.setVisibility(View.VISIBLE);
-                    } else {
+                    if (createTableLayout.getVisibility() == View.GONE) {
+                        createTableLayout.setVisibility(View.VISIBLE);
                         textViewHint.setVisibility(View.GONE);
+                    } else {
+                        createTableLayout.setVisibility(View.GONE);
+                        inputMethodManager = (InputMethodManager)getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+                        if (tableList.isEmpty()) {
+                            textViewHint.setVisibility(View.VISIBLE);
+                        } else {
+                            textViewHint.setVisibility(View.GONE);
+                        }
                     }
-                    adapter.notifyDataSetChanged();
+                   /* LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+                    final View view = inflater.inflate(R.layout.editbox_layout, null);
+                    final EditText editText = (EditText) view.findViewById(R.id.ed_table_name);
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle("Create a table")
+                            .setView(view)
+                            .setPositiveButton("CREATE",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            tableName = editText.getText().toString();
+                                            Table table = new Table(tableName);
+                                            tableList.add(table);
+                                            if (tableList.isEmpty()) {
+                                                textViewHint.setVisibility(View.VISIBLE);
+                                            } else {
+                                                textViewHint.setVisibility(View.GONE);
+                                            }
+                                            adapter.notifyDataSetChanged();
+                                        }
+                                    }).create().show();*/
                     break;
                 //case R.id.action_settings:
                     //msg += "Click setting";
@@ -210,5 +282,37 @@ public class MainActivity extends ActionBarActivity{
     protected void onDestroy() {
         super.onDestroy();
         ExitApplication.getInstance().exit();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.bt_create:
+                tableName = editText.getText().toString();
+                Table table = new Table(tableName);
+                tableList.add(table);
+                if (tableList.isEmpty()) {
+                    textViewHint.setVisibility(View.VISIBLE);
+                } else {
+                    textViewHint.setVisibility(View.GONE);
+                }
+                adapter.notifyDataSetChanged();
+                createTableLayout.setVisibility(View.GONE);
+                editText.setText("");
+                inputMethodManager = (InputMethodManager)v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                break;
+            case R.id.bt_cancel:
+                createTableLayout.setVisibility(View.GONE);
+                if (tableList.isEmpty()) {
+                    textViewHint.setVisibility(View.VISIBLE);
+                } else {
+                    textViewHint.setVisibility(View.GONE);
+                }
+                inputMethodManager = (InputMethodManager)v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                break;
+        }
+
     }
 }

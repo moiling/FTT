@@ -30,6 +30,47 @@
             android:textSize="18sp"
             android:textColor="#777"
             android:visibility="gone"/>
+
+       <LinearLayout
+           android:id="@+id/ll_create"
+           android:orientation="vertical"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:background="@color/material_blue_grey_800"
+           android:visibility="gone">
+
+           <EditText
+               android:id="@+id/ed_table"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginLeft="20dp"
+               android:layout_marginRight="20dp"/>
+
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+
+               <com.gc.materialdesign.views.ButtonFlat
+                   android:id="@+id/bt_create"
+                   android:layout_alignParentRight="true"
+                   android:layout_marginRight="10dp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:background="#ffffff"
+                   android:text="CREATE"/>
+
+               <com.gc.materialdesign.views.ButtonFlat
+                   android:id="@+id/bt_cancel"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_alignParentRight="true"
+                   android:layout_marginRight="100dp"
+                   android:background="#ffffff"
+                   android:text="CANCEL"/>
+
+               </RelativeLayout>
+           </LinearLayout>
+
         <ListView
             android:id="@+id/list_view"
             android:layout_width="match_parent"
