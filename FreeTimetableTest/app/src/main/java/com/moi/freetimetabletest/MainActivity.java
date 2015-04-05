@@ -9,13 +9,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
@@ -30,7 +33,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     private MaterialMenuDrawable materialMenu;
 
-    private ListView mListView;
+    private BounceListView mListView;
 
     private List<Table> tableList = new ArrayList<Table>();
 
@@ -51,6 +54,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     private ButtonFlat cancelButton;
 
     private InputMethodManager inputMethodManager;
+
+    private Animation animation;
+
+    private AnimationSet animationSet;
+
+    private LayoutAnimationController controller;
+
+    private RelativeLayout relativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -78,7 +89,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             textViewHint.setVisibility(View.GONE);
         }
         // 创建listview
-        mListView = (ListView) findViewById(R.id.list_view);
+        mListView = (BounceListView) findViewById(R.id.list_view);
         adapter = new TableListAdapter(MainActivity.this, R.layout.item_table_list, tableList);
         mListView.setAdapter(adapter);
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -108,9 +119,15 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         createTableLayout.setVisibility(View.GONE);
         editText = (EditText) findViewById(R.id.ed_table);
         createButton = (ButtonFlat) findViewById(R.id.bt_create);
+        createButton.setBackgroundColor(getResources().getColor(R.color.white));
         cancelButton = (ButtonFlat) findViewById(R.id.bt_cancel);
+        cancelButton.setBackgroundColor(getResources().getColor(R.color.white));
         createButton.setOnClickListener(this);
         cancelButton.setOnClickListener(this);
+
+
+
+        relativeLayout = (RelativeLayout) findViewById(R.id.rl_create);
 
     }
 
@@ -215,7 +232,12 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 case R.id.action_edit:
                     if (createTableLayout.getVisibility() == View.GONE) {
                         createTableLayout.setVisibility(View.VISIBLE);
-                        textViewHint.setVisibility(View.GONE);
+                        animation = new AlphaAnimation(0,1);
+                        animation.setDuration(500);
+                        //animationSet.addAnimation(animation);
+                        controller = new LayoutAnimationController(animation,1);
+                        relativeLayout.setLayoutAnimation(controller);
+                        //textViewHint.setVisibility(View.GONE);
                     } else {
                         createTableLayout.setVisibility(View.GONE);
                         inputMethodManager = (InputMethodManager)getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -225,6 +247,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                         } else {
                             textViewHint.setVisibility(View.GONE);
                         }
+
                     }
                    /* LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
                     final View view = inflater.inflate(R.layout.editbox_layout, null);

@@ -21,16 +21,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_hint_add_table"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="Click '+' to new a table! :)"
-            android:textSize="18sp"
-            android:textColor="#777"
-            android:visibility="gone"/>
 
+
+       <RelativeLayout
+           android:id="@+id/rl_create"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
        <LinearLayout
            android:id="@+id/ll_create"
            android:orientation="vertical"
@@ -56,7 +52,7 @@
                    android:layout_marginRight="10dp"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:background="#ffffff"
+                   android:background="@color/white"
                    android:text="CREATE"/>
 
                <com.gc.materialdesign.views.ButtonFlat
@@ -64,19 +60,30 @@
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:layout_alignParentRight="true"
-                   android:layout_marginRight="100dp"
-                   android:background="#ffffff"
+                   android:layout_marginRight="80dp"
+                   android:background="@color/white"
                    android:text="CANCEL"/>
 
                </RelativeLayout>
            </LinearLayout>
+       </RelativeLayout>
 
-        <ListView
+       <TextView
+           android:id="@+id/tv_hint_add_table"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:gravity="center"
+           android:text="Click '+' to new a table! :)"
+           android:textSize="18sp"
+           android:textColor="#777"
+           android:visibility="gone"/>
+
+        <com.moi.freetimetabletest.BounceListView
             android:id="@+id/list_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            </ListView>
+            </com.moi.freetimetabletest.BounceListView>
 
         </LinearLayout>
 
