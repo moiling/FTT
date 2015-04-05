@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -125,9 +127,13 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         createButton.setOnClickListener(this);
         cancelButton.setOnClickListener(this);
 
-
-
         relativeLayout = (RelativeLayout) findViewById(R.id.rl_create);
+
+
+        View titleView = LayoutInflater.from(MainActivity.this).inflate(R.layout.header_table_list, null);
+        titleView.setLayoutParams(new ListView.LayoutParams(ListView.LayoutParams.MATCH_PARENT,
+                ListView.LayoutParams.WRAP_CONTENT));
+        mListView.addHeaderView(titleView);
 
     }
 
@@ -239,7 +245,18 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                         relativeLayout.setLayoutAnimation(controller);
                         //textViewHint.setVisibility(View.GONE);
                     } else {
+
+                        tableName = editText.getText().toString();
+                        Table table = new Table(tableName);
+                        tableList.add(table);
+                        if (tableList.isEmpty()) {
+                            textViewHint.setVisibility(View.VISIBLE);
+                        } else {
+                            textViewHint.setVisibility(View.GONE);
+                        }
+                        adapter.notifyDataSetChanged();
                         createTableLayout.setVisibility(View.GONE);
+                        editText.setText("");
                         inputMethodManager = (InputMethodManager)getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                         inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
                         if (tableList.isEmpty()) {
