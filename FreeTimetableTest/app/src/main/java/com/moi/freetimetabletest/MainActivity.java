@@ -103,7 +103,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 SnackBar snackbar = new SnackBar((Activity) view.getContext(), "Delete this item?", "Yes", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        tableList.remove(position);
+                        tableList.remove(position - 1);
                         if (tableList.isEmpty()) {
                             textViewHint.setVisibility(View.VISIBLE);
                         } else {
