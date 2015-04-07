@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends ActionBarActivity implements View.OnClickListener, Toolbar.OnMenuItemClickListener, AdapterView.OnItemLongClickListener {
+public class MainActivity extends ActionBarActivity implements View.OnClickListener, Toolbar.OnMenuItemClickListener, AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener {
 
     private MaterialMenuDrawable materialMenu;
 
@@ -118,6 +119,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         mListView = (BounceListView) findViewById(R.id.list_view);
         adapter = new TableListAdapter(MainActivity.this, R.layout.item_table_list, tableList);
         mListView.setAdapter(adapter);
+        mListView.setOnItemClickListener(this);
         mListView.setOnItemLongClickListener(this);
 
         createTableLayout = (LinearLayout) findViewById(R.id.ll_create);
@@ -302,18 +304,29 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                  * 然后在idList根据position获取id，对应删除就可以了
                  */
 
-                Cursor cursor = db.query("timeTable", null, null, null, null, null, null);
-                if (cursor.moveToFirst()) {
-                    do {
-                        int id = cursor.getInt(cursor.getColumnIndex("id"));
-                        idList.add(id);
-                    } while (cursor.moveToNext());
-                }
-                db.delete("timeTable", "id = ?", new String[] { idList.get(position - 1) + "" });
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
 
+                        Cursor cursor = db.query("timeTable", null, null, null, null, null, null);
+                        if (cursor.moveToFirst()) {
+                            do {
+                                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                                idList.add(id);
+                            } while (cursor.moveToNext());
+                        }
+                        Log.d("---------->",idList.get(position - 1) + "");
+                        Log.d("---------->","删除了！");
+                        db.delete("timeTable", "id = ?", new String[] { idList.get(position - 1) + "" });
+                        // 不清空数据全乱了
+                        idList.clear();
+
+                    }
+                }).start();
                 tableList.remove(position - 1);// 这里-1是因为listView加了一个header，原来每个item的position都+1了，所以这里-1补平
-                showHint();
                 adapter.notifyDataSetChanged();
+                showHint();
+
             }
         });
         snackbar.show();
@@ -344,7 +357,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         return true;
     }
 
-
+    /**
+     * 跳转
+     */
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Table table = tableList.get(position - 1);
+        TimeTableActivity.actionStart(view.getContext(), table.getName());
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -373,5 +393,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         super.onDestroy();
         ExitApplication.getInstance().exit();
     }
+
 
 }
