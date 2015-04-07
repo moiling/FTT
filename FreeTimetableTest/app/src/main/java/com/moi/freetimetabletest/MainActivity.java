@@ -73,6 +73,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     private ContentValues values;
 
+    private List<Integer> idList = new ArrayList<Integer>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -89,7 +91,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             do {
                 String name = cursor.getString(cursor.getColumnIndex("table_name"));
                 Table table = new Table(name);
-
                 tableList.add(table);
             } while (cursor.moveToNext());
         }
@@ -294,8 +295,23 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         SnackBar snackbar = new SnackBar((Activity) view.getContext(), "Delete this item?", "Yes", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tableList.remove(position - 1);// 这里-1是因为listView加了一个header，原来每个item的position都+1了，所以这里-1补平
 
+                /**
+                 * 这一段用来删除sqlite中对应的数据
+                 * 先用cursor把sqlite中的id一个个给idList,这样我们就获取到了id的顺序
+                 * 然后在idList根据position获取id，对应删除就可以了
+                 */
+
+                Cursor cursor = db.query("timeTable", null, null, null, null, null, null);
+                if (cursor.moveToFirst()) {
+                    do {
+                        int id = cursor.getInt(cursor.getColumnIndex("id"));
+                        idList.add(id);
+                    } while (cursor.moveToNext());
+                }
+                db.delete("timeTable", "id = ?", new String[] { idList.get(position - 1) + "" });
+
+                tableList.remove(position - 1);// 这里-1是因为listView加了一个header，原来每个item的position都+1了，所以这里-1补平
                 showHint();
                 adapter.notifyDataSetChanged();
             }
@@ -305,7 +321,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     }
 
     /**
-     * Toolbar item的点击事件（创建table）
+     * Toolbar item的点击事件（创建item）
      */
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {

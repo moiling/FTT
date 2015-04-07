@@ -2,6 +2,7 @@ package com.moi.freetimetabletest;
 
 /**
  * Created by moi on 2015/4/3.
+ *
  */
 public class Table {
     private String name;
