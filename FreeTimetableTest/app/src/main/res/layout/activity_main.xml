@@ -32,7 +32,7 @@
            android:orientation="vertical"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           android:background="@color/material_blue_grey_800"
+           android:background="@color/primary_color"
            android:visibility="gone">
 
            <EditText

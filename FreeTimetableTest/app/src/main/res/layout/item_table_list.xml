@@ -13,22 +13,28 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             card_view:cardCornerRadius="2dp"
             card_view:cardElevation="2dp"
-            card_view:cardBackgroundColor="#fff">
+            card_view:cardBackgroundColor="@color/white">
 
-            <TextView
 
-                android:id="@+id/tv_item"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:textColor="#777"
-                android:gravity="center"
-                android:textSize="16sp"
-                android:paddingLeft="40dp"/>
+                <TextView
+
+                    android:id="@+id/tv_item"
+                    android:layout_margin="6dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="20dp"
+                    android:textColor="@color/secondary_text"
+                    android:layout_gravity="center"
+                    android:gravity="center_vertical"
+                    android:textSize="16sp"
+                    android:paddingLeft="40dp"/>
+
+
+
 
         </android.support.v7.widget.CardView>
 

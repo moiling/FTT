@@ -37,7 +37,7 @@ public class TableListAdapter extends ArrayAdapter<Table> {
             view = convertView;
             viewHolder = (ViewHolder) view.getTag();
         }
-        viewHolder.textView.setText(table.getName());
+        viewHolder.textView.setText("  ●  " + table.getName());
         return view;
     }
 
