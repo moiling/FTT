@@ -5,10 +5,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
 
@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TimeTableActivity extends FragmentActivity implements View.OnClickListener {
+public class TimeTableActivity extends ActionBarActivity implements View.OnClickListener {
 
 
 
@@ -119,7 +119,7 @@ public class TimeTableActivity extends FragmentActivity implements View.OnClickL
         toolbar.setTitle("  FTT    " + tableName);
         // Sub Title
         //toolbar.setSubtitle("  " + tableName);
-        setActionBar(toolbar);
+        setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 // Handle your drawable state here

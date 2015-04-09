@@ -4,7 +4,7 @@
     tools:context="com.moi.freetimetabletest.TimeTableActivity"
     android:orientation="vertical">
 
-    <Toolbar
+    <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,7 +13,7 @@
 
 
 
-    </Toolbar>
+    </android.support.v7.widget.Toolbar>
 
 
         <LinearLayout
