@@ -16,6 +16,7 @@
         </android.support.v7.widget.Toolbar>
 
    <LinearLayout
+        android:id="@+id/content"
         android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -32,7 +33,7 @@
            android:orientation="vertical"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           android:background="@color/primary_color"
+           android:background="@color/accent_color"
            android:visibility="gone">
 
            <EditText
@@ -78,7 +79,7 @@
            android:textColor="#777"
            android:visibility="gone"/>
 
-        <com.moi.freetimetabletest.BounceListView
+       <com.moi.freetimetabletest.BounceListView
             android:id="@+id/list_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -86,7 +87,19 @@
 
             </com.moi.freetimetabletest.BounceListView>
 
-        </LinearLayout>
+       </LinearLayout>
+
+   <com.gc.materialdesign.views.ButtonFloat
+        android:id="@+id/buttonFloat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/content"
+        android:layout_marginTop="-4dp"
+        android:layout_marginRight="24dp"
+        android:background="#1E88E5"
+        materialdesign:animate="true"
+        materialdesign:iconDrawable="@mipmap/more_icon" />
 
 
 </RelativeLayout>

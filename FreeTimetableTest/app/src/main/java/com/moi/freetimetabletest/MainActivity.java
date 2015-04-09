@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.gc.materialdesign.views.ButtonFlat;
+import com.gc.materialdesign.views.ButtonFloat;
 import com.gc.materialdesign.widgets.SnackBar;
 
 import java.util.ArrayList;
@@ -65,6 +66,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     private LayoutAnimationController controller;
 
     private RelativeLayout relativeLayout;
+
+    private ButtonFloat buttonFloat;
 
     //数据库
 
@@ -115,6 +118,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         // 判断提示是否出现（当list为空时）
         showHint();
 
+        buttonFloat = (ButtonFloat) findViewById(R.id.buttonFloat);
+        buttonFloat.setBackgroundColor(getResources().getColor(R.color.accent_color));
+        buttonFloat.setOnClickListener(this);
         // 创建listview
         mListView = (BounceListView) findViewById(R.id.list_view);
         adapter = new TableListAdapter(MainActivity.this, R.layout.item_table_list, tableList);
@@ -138,7 +144,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         View titleView = LayoutInflater.from(MainActivity.this).inflate(R.layout.header_table_list, null);
         titleView.setLayoutParams(new ListView.LayoutParams(ListView.LayoutParams.MATCH_PARENT,
                 ListView.LayoutParams.WRAP_CONTENT));
-        mListView.addHeaderView(titleView);
+        mListView.addHeaderView(titleView, null, false);
 
     }
 
@@ -267,6 +273,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     /**
      * 创建table
      * 取消创建
+     * 创建
      */
     @Override
     public void onClick(View v) {
@@ -274,13 +281,30 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             case R.id.bt_create:
 
                 createTable();
-
+                buttonFloat.setVisibility(View.VISIBLE);
+                animation = new AlphaAnimation(0,1);
+                controller = new LayoutAnimationController(animation,1);
+                buttonFloat.setLayoutAnimation(controller);
                 break;
             case R.id.bt_cancel:
                 createTableLayout.setVisibility(View.GONE);
                 showHint();
                 inputMethodManager = (InputMethodManager)v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                buttonFloat.setVisibility(View.VISIBLE);
+                animation = new AlphaAnimation(0,1);
+                controller = new LayoutAnimationController(animation,1);
+                buttonFloat.setLayoutAnimation(controller);
+                break;
+            case R.id.buttonFloat:
+                createTableLayout.setVisibility(View.VISIBLE);
+                animation = new AlphaAnimation(0,1);
+                controller = new LayoutAnimationController(animation,1);
+                relativeLayout.setLayoutAnimation(controller);
+                editText.requestFocus();
+                InputMethodManager imm = (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+                buttonFloat.setVisibility(View.GONE);
                 break;
 
         }
@@ -338,22 +362,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
      */
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            //创建一个新的list item（这里还没做好，不能和保存到数据库）
-            case R.id.action_edit:
-                if (createTableLayout.getVisibility() == View.GONE) {
-                    createTableLayout.setVisibility(View.VISIBLE);
-                    animation = new AlphaAnimation(0,1);
-                    animation.setDuration(500);
-                    //animationSet.addAnimation(animation);
-                    controller = new LayoutAnimationController(animation,1);
-                    relativeLayout.setLayoutAnimation(controller);
-                    //textViewHint.setVisibility(View.GONE);
-                } else {
-                    createTable();
-                }
-                break;
-        }
+
         return true;
     }
 
