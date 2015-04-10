@@ -97,7 +97,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         values = new ContentValues();
 
         // 绑定list
-        Cursor cursor = db.query("timeTable", null, "", null, null, null, null);
+        Cursor cursor = db.query("timeTable", null, null, null, null, null, null);
         if (cursor.moveToFirst()) {
             do {
                 String name = cursor.getString(cursor.getColumnIndex("table_name"));
