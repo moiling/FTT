@@ -35,6 +35,7 @@ import com.moi.freetimetabletest.BounceListView;
 import com.moi.freetimetabletest.ExitApplication;
 import com.moi.freetimetabletest.R;
 import com.moi.freetimetabletest.adpter.TableListAdapter;
+import com.moi.freetimetabletest.db.MemberDatabaseHelper;
 import com.moi.freetimetabletest.db.TableDatabaseHelper;
 import com.moi.freetimetabletest.objectclass.Table;
 
@@ -80,7 +81,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     private TableDatabaseHelper dbHelper;
 
+    private MemberDatabaseHelper memberdbHelper;
+
     private SQLiteDatabase db;
+
+    private SQLiteDatabase memberdb;
 
     private ContentValues values;
 
@@ -90,11 +95,17 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         // 创建数据库
         dbHelper = new TableDatabaseHelper(this, "TimeTableStore.db", null, 1);
         dbHelper.getWritableDatabase();
         db = dbHelper.getWritableDatabase();
         values = new ContentValues();
+
+        // 创建member数据库
+        memberdbHelper = new MemberDatabaseHelper(this.getApplicationContext(), "Member.db", null, 1);
+        memberdbHelper.getWritableDatabase();
+        memberdb = memberdbHelper.getWritableDatabase();
 
         // 绑定list
         Cursor cursor = db.query("timeTable", null, null, null, null, null, null);
@@ -251,6 +262,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
      */
     private void clearTables() {
         tableList.clear();
+        // 把member表也全清空
+        memberdb.execSQL("DELETE FROM member");
         // 清空数据库
         db.execSQL("DELETE FROM timeTable");
         showHint();
@@ -262,6 +275,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
      */
     private void createTable() {
         tableName = editText.getText().toString();
+
         //数据库
         values.clear();
         values.put("table_name", tableName);
@@ -359,6 +373,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                         Log.d("---------->",idList.get(position - 1) + "");
                         Log.d("---------->","删除了！");
                         db.delete("timeTable", "id = ?", new String[] { idList.get(position - 1) + "" });
+
+                        // 把对应的member表删除
+                        memberdb.delete("member", "tableId = ?", new String[] { idList.get(position - 1) + "" });
                         // 不清空数据全乱了
                         idList.clear();
 

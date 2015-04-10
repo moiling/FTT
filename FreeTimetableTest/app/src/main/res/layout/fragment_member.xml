@@ -34,7 +34,7 @@
         android:layout_marginRight="24dp"
         android:background="#1E88E5"
         materialdesign:animate="true"
-        materialdesign:iconDrawable="@mipmap/more_icon" />
+        materialdesign:iconDrawable="@mipmap/add_icon" />
 
     <com.gc.materialdesign.views.ButtonFloat
         android:id="@+id/btn_clear_members"
@@ -47,5 +47,5 @@
         android:layout_marginRight="24dp"
         android:background="#1E88E5"
         materialdesign:animate="true"
-        materialdesign:iconDrawable="@mipmap/more_icon" />
+        materialdesign:iconDrawable="@mipmap/delete_icon" />
 </RelativeLayout>
