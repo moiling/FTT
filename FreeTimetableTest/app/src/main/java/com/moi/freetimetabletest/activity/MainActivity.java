@@ -97,7 +97,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         values = new ContentValues();
 
         // 绑定list
-        Cursor cursor = db.query("timeTable", null, null, null, null, null, null);
+        Cursor cursor = db.query("timeTable", null, "", null, null, null, null);
         if (cursor.moveToFirst()) {
             do {
                 String name = cursor.getString(cursor.getColumnIndex("table_name"));
@@ -389,7 +389,16 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Table table = tableList.get(position - 1);
-        TimeTableActivity.actionStart(view.getContext(), table.getName());
+        Cursor cursor = db.query("timeTable", null, null, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                int tableId = cursor.getInt(cursor.getColumnIndex("id"));
+                idList.add(tableId);
+            } while (cursor.moveToNext());
+        }
+        TimeTableActivity.actionStart(view.getContext(), table.getName(), idList.get(position - 1));
+        // 不清空数据全乱了
+        idList.clear();
     }
 
     @Override

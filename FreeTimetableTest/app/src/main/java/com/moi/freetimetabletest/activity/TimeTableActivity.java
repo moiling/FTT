@@ -31,9 +31,10 @@ public class TimeTableActivity extends ActionBarActivity implements View.OnClick
 
 
 
-    public static void actionStart(Context context, String tableName) {
+    public static void actionStart(Context context, String tableName, int tableId) {
         Intent intent = new Intent(context, TimeTableActivity.class);
         intent.putExtra("table_name", tableName);
+        intent.putExtra("table_id", tableId);
         context.startActivity(intent);
     }
 
