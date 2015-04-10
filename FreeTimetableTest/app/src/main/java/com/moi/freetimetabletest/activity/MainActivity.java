@@ -18,6 +18,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.view.animation.RotateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -33,9 +34,9 @@ import com.gc.materialdesign.widgets.SnackBar;
 import com.moi.freetimetabletest.BounceListView;
 import com.moi.freetimetabletest.ExitApplication;
 import com.moi.freetimetabletest.R;
-import com.moi.freetimetabletest.objectclass.Table;
-import com.moi.freetimetabletest.db.TableDatabaseHelper;
 import com.moi.freetimetabletest.adpter.TableListAdapter;
+import com.moi.freetimetabletest.db.TableDatabaseHelper;
+import com.moi.freetimetabletest.objectclass.Table;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -288,9 +289,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
                 createTable();
                 buttonFloat.setVisibility(View.VISIBLE);
-                animation = new AlphaAnimation(0,1);
-                controller = new LayoutAnimationController(animation,1);
-                buttonFloat.setLayoutAnimation(controller);
+                //初始化
+                Animation alphaAnimation2 = new AlphaAnimation(0.1f, 1.0f);
+                //设置动画时间
+                alphaAnimation2.setDuration(500);
+                buttonFloat.startAnimation(alphaAnimation2);
                 break;
             case R.id.bt_cancel:
                 createTableLayout.setVisibility(View.GONE);
@@ -298,18 +301,26 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 inputMethodManager = (InputMethodManager)v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 buttonFloat.setVisibility(View.VISIBLE);
-                animation = new AlphaAnimation(0,1);
-                controller = new LayoutAnimationController(animation,1);
-                buttonFloat.setLayoutAnimation(controller);
+                //初始化
+                Animation alphaAnimation1 = new AlphaAnimation(0.1f, 1.0f);
+                //设置动画时间
+                alphaAnimation1.setDuration(500);
+                buttonFloat.startAnimation(alphaAnimation1);
                 break;
             case R.id.buttonFloat:
                 createTableLayout.setVisibility(View.VISIBLE);
-                animation = new AlphaAnimation(0,1);
-                controller = new LayoutAnimationController(animation,1);
-                relativeLayout.setLayoutAnimation(controller);
+                //初始化
+                Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
+                //设置动画时间
+                alphaAnimation.setDuration(500);
+                relativeLayout.startAnimation(alphaAnimation);
                 editText.requestFocus();
                 InputMethodManager imm = (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+
+                Animation rotateAnimation = new RotateAnimation(0f, 360f);
+                rotateAnimation.setDuration(500);
+                buttonFloat.startAnimation(rotateAnimation);
                 buttonFloat.setVisibility(View.GONE);
                 break;
 

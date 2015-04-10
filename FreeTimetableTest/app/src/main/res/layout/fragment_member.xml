@@ -1,6 +1,8 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="com.moi.freetimetabletest.fragment.MemberFragment">
+    android:layout_height="match_parent"
+    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+    tools:context="com.moi.freetimetabletest.fragment.MemberFragment">
 
     <com.moi.freetimetabletest.BounceListView
         android:id="@+id/list_view"
@@ -9,4 +11,41 @@
         android:layout_height="match_parent">
 
         </com.moi.freetimetabletest.BounceListView>
-</FrameLayout>
+
+    <com.gc.materialdesign.views.ButtonFloat
+        android:id="@+id/menu_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="24dp"
+        android:layout_alignParentBottom="true"
+        android:background="#1E88E5"
+        materialdesign:animate="true"
+        materialdesign:iconDrawable="@mipmap/more_icon" />
+
+    <com.gc.materialdesign.views.ButtonFloat
+        android:id="@+id/btn_add_member"
+        android:layout_above="@+id/btn_clear_members"
+        android:layout_marginBottom="20dp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="24dp"
+        android:background="#1E88E5"
+        materialdesign:animate="true"
+        materialdesign:iconDrawable="@mipmap/more_icon" />
+
+    <com.gc.materialdesign.views.ButtonFloat
+        android:id="@+id/btn_clear_members"
+        android:layout_above="@+id/menu_button"
+        android:layout_marginBottom="20dp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="24dp"
+        android:background="#1E88E5"
+        materialdesign:animate="true"
+        materialdesign:iconDrawable="@mipmap/more_icon" />
+</RelativeLayout>

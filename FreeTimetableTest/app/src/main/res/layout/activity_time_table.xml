@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.moi.freetimetabletest.activity.TimeTableActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/primary_color">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -32,7 +33,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="TABLE"
-                android:textSize="16sp"/>
+                android:textSize="14sp"/>
 
             <TextView
                 android:id="@+id/tv_2"
@@ -41,7 +42,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="MEMBER"
-                android:textSize="16sp"/>
+                android:textSize="14sp"/>
 
             </LinearLayout>
 
@@ -61,7 +62,8 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/background_material_light">
 
             </android.support.v4.view.ViewPager>
 
