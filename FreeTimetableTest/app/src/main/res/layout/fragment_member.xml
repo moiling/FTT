@@ -4,7 +4,53 @@
     xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
     tools:context="com.moi.freetimetabletest.fragment.MemberFragment">
 
+    <RelativeLayout
+        android:id="@+id/rl_create"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/ll_create"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/accent_color"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/ed_table"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.gc.materialdesign.views.ButtonFlat
+                    android:id="@+id/bt_create"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:text="CREATE"/>
+
+                <com.gc.materialdesign.views.ButtonFlat
+                    android:id="@+id/bt_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="80dp"
+                    android:background="@color/white"
+                    android:text="CANCEL"/>
+
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
     <com.moi.freetimetabletest.BounceListView
+        android:layout_below="@+id/rl_create"
         android:id="@+id/list_view"
         android:scrollbars="none"
         android:layout_width="match_parent"

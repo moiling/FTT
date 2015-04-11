@@ -74,7 +74,7 @@
            android:layout_width="match_parent"
            android:layout_height="match_parent"
            android:gravity="center"
-           android:text="Click '+' to new a table! :)"
+           android:text=":(\n\nDon't have a table,\nClick '+' to new!"
            android:textSize="18sp"
            android:textColor="#777"
            android:visibility="gone"/>

@@ -242,6 +242,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             }
         });
         materialMenu = new MaterialMenuDrawable(this, Color.WHITE, MaterialMenuDrawable.Stroke.THIN);
+        materialMenu.animateIconState(MaterialMenuDrawable.IconState.BURGER, false);
         toolbar.setNavigationIcon(materialMenu);
         materialMenu.setNeverDrawTouch(true);
 
