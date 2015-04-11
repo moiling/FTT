@@ -142,6 +142,12 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         // 创建listview
         mListView = (BounceListView) findViewById(R.id.list_view);
         adapter = new TableListAdapter(MainActivity.this, R.layout.item_table_list, tableList);
+
+        View titleView = LayoutInflater.from(MainActivity.this).inflate(R.layout.header_table_list, null);
+        titleView.setLayoutParams(new ListView.LayoutParams(ListView.LayoutParams.MATCH_PARENT,
+                ListView.LayoutParams.WRAP_CONTENT));
+        mListView.addHeaderView(titleView, null, false);
+
         mListView.setAdapter(adapter);
         mListView.setOnItemClickListener(this);
         mListView.setOnItemLongClickListener(this);
@@ -159,10 +165,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         relativeLayout = (RelativeLayout) findViewById(R.id.rl_create);
 
 
-        View titleView = LayoutInflater.from(MainActivity.this).inflate(R.layout.header_table_list, null);
-        titleView.setLayoutParams(new ListView.LayoutParams(ListView.LayoutParams.MATCH_PARENT,
-                ListView.LayoutParams.WRAP_CONTENT));
-        mListView.addHeaderView(titleView, null, false);
+
 
     }
 
