@@ -162,24 +162,38 @@ public class MemberFragment extends Fragment implements View.OnClickListener, Ad
             case R.id.menu_button:
 
                 if (addMemberButton.getVisibility() == View.GONE) {
-                    Animation rotateAnimation = new RotateAnimation(360f, 0f, 0f, 0f);
+                   /* Animation rotateAnimation = new RotateAnimation(360f, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                     rotateAnimation.setDuration(500);
                     addMemberButton.startAnimation(rotateAnimation);
-                    clearMembersButton.startAnimation(rotateAnimation);
+                    clearMembersButton.startAnimation(rotateAnimation);*/
+
+                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
+                    //设置动画时间
+                    alphaAnimation.setDuration(500);
+                    addMemberButton.startAnimation(alphaAnimation);
+                    clearMembersButton.startAnimation(alphaAnimation);
+
                     addMemberButton.setVisibility(View.VISIBLE);
                     clearMembersButton.setVisibility(View.VISIBLE);
                 } else {
-                    Animation rotateAnimation = new RotateAnimation(0f, 360f, 0f, 0f);
+                    /*Animation rotateAnimation = new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                     rotateAnimation.setDuration(500);
                     addMemberButton.startAnimation(rotateAnimation);
-                    clearMembersButton.startAnimation(rotateAnimation);
+                    clearMembersButton.startAnimation(rotateAnimation);*/
+
+                    Animation alphaAnimation = new AlphaAnimation(1.0f, 0.1f);
+                    //设置动画时间
+                    alphaAnimation.setDuration(500);
+                    addMemberButton.startAnimation(alphaAnimation);
+                    clearMembersButton.startAnimation(alphaAnimation);
+
                     addMemberButton.setVisibility(View.GONE);
                     clearMembersButton.setVisibility(View.GONE);
                 }
                 break;
 
             case R.id.btn_add_member:
-                Animation rotateAnimation = new RotateAnimation(360f, 0f, 0f, 0f);
+                Animation rotateAnimation = new RotateAnimation(360f, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 rotateAnimation.setDuration(500);
                 addMemberButton.startAnimation(rotateAnimation);
 
@@ -193,7 +207,7 @@ public class MemberFragment extends Fragment implements View.OnClickListener, Ad
                 InputMethodManager imm = (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
 
-                Animation rotateAnimation3 = new RotateAnimation(0f, 360f, 0f, 0f);
+                Animation rotateAnimation3 = new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 rotateAnimation3.setDuration(500);
                 addMemberButton.startAnimation(rotateAnimation3);
                 clearMembersButton.startAnimation(rotateAnimation3);
@@ -204,14 +218,21 @@ public class MemberFragment extends Fragment implements View.OnClickListener, Ad
                 break;
 
             case R.id.btn_clear_members:
-                Animation rotateAnimation2 = new RotateAnimation(360f, 0f, 0f, 0f);
+               /* Animation rotateAnimation2 = new RotateAnimation(360f, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 rotateAnimation2.setDuration(500);
-                clearMembersButton.startAnimation(rotateAnimation2);
+                clearMembersButton.startAnimation(rotateAnimation2);*/
                 clearMembers();
-                Animation rotateAnimation4 = new RotateAnimation(0f, 360f, 0f, 0f);
+                /*Animation rotateAnimation4 = new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 rotateAnimation4.setDuration(500);
                 addMemberButton.startAnimation(rotateAnimation4);
-                clearMembersButton.startAnimation(rotateAnimation4);
+                clearMembersButton.startAnimation(rotateAnimation4);*/
+
+                Animation alphaAnimation3 = new AlphaAnimation(1.0f, 0.1f);
+                //设置动画时间
+                alphaAnimation3.setDuration(500);
+                addMemberButton.startAnimation(alphaAnimation3);
+                clearMembersButton.startAnimation(alphaAnimation3);
+
                 addMemberButton.setVisibility(View.GONE);
                 clearMembersButton.setVisibility(View.GONE);
                 break;

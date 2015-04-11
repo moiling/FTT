@@ -336,7 +336,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 InputMethodManager imm = (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
 
-                Animation rotateAnimation = new RotateAnimation(0f, 360f);
+                Animation rotateAnimation = new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 rotateAnimation.setDuration(500);
                 buttonFloat.startAnimation(rotateAnimation);
                 buttonFloat.setVisibility(View.GONE);
