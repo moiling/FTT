@@ -12,13 +12,446 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <GridLayout
-        android:id="@+id/grid_layout"
+    <LinearLayout
         android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
 
-        </GridLayout>
+        <!--表头-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+
+            <!--空白列-->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+
+            <!--空白竖分割线-->
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"/>
+
+            <!--周一-->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:text="Mon"
+                android:textColor="#999"
+                android:gravity="center"/>
+
+            <!--空白竖分割线-->
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"/>
+
+
+            <!--周二-->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:text="Tus"
+                android:textColor="#999"
+                android:gravity="center"/>
+
+            <!--空白竖分割线-->
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"/>
+
+
+            <!--周三-->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:text="Wed"
+                android:textColor="#999"
+                android:gravity="center"/>
+
+            <!--空白竖分割线-->
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"/>
+
+
+            <!--周四-->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:text="Thu"
+                android:textColor="#999"
+                android:gravity="center"/>
+
+            <!--空白竖分割线-->
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"/>
+
+
+            <!--周五-->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:text="Fri"
+                android:textColor="#999"
+                android:gravity="center"/>
+
+            <!--空白竖分割线-->
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"/>
+
+
+            <!--周六-->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:text="Sta"
+                android:textColor="#999"
+                android:gravity="center"/>
+
+            <!--空白竖分割线-->
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"/>
+
+
+            <!--周日-->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:text="Sun"
+                android:textColor="#999"
+                android:gravity="center"/>
+
+
+        </LinearLayout>
+
+
+        <!--横分割线-->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="1dp"/>
+            <View
+                android:layout_weight="14"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="#bbb"/>
+
+        </LinearLayout>
+
+        <!--内容-->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!--从左到右列布局-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <!--第一列课程节数-->
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!--1-->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center"
+                        android:textColor="#999"
+                        android:text="1"/>
+
+                    <!--空白横分割线-->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"/>
+
+                    <!--2-->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center"
+                        android:textColor="#999"
+                        android:text="2"/>
+
+                    <!--空白横分割线-->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"/>
+
+                    <!--3-->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center"
+                        android:textColor="#999"
+                        android:text="3"/>
+
+                    <!--空白横分割线-->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"/>
+
+                    <!--4-->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center"
+                        android:textColor="#999"
+                        android:text="4"/>
+
+                    <!--空白横分割线-->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"/>
+
+                    <!--5-->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center"
+                        android:textColor="#999"
+                        android:text="5"/>
+
+                    <!--空白横分割线-->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"/>
+
+                    <!--6-->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center"
+                        android:textColor="#999"
+                        android:text="6"/>
+
+                    <!--空白横分割线-->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"/>
+
+                    <!--7-->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center"
+                        android:textColor="#999"
+                        android:text="7"/>
+
+                    <!--空白横分割线-->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"/>
+
+                    <!--8-->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center"
+                        android:textColor="#999"
+                        android:text="8"/>
+
+                    <!--空白横分割线-->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"/>
+
+                    <!--9-->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center"
+                        android:textColor="#999"
+                        android:text="9"/>
+
+                    <!--空白横分割线-->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"/>
+
+                    <!--10-->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center"
+                        android:textColor="#999"
+                        android:text="10"/>
+
+                    <!--空白横分割线-->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"/>
+
+                    <!--11-->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center"
+                        android:textColor="#999"
+                        android:text="11"/>
+
+                    <!--空白横分割线-->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"/>
+
+                    <!--12-->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center"
+                        android:textColor="#999"
+                        android:text="12"/>
+
+
+
+                </LinearLayout>
+
+                <!--竖分割线-->
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#bbb"/>
+
+                <!--星期一的课程-->
+                <LinearLayout
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                </LinearLayout>
+
+                <!--竖分割线-->
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#bbb"/>
+
+                <!--星期二的课程-->
+                <LinearLayout
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                </LinearLayout>
+
+                <!--竖分割线-->
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#bbb"/>
+
+                <!--星期三的课程-->
+                <LinearLayout
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                </LinearLayout>
+
+                <!--竖分割线-->
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#bbb"/>
+
+                <!--星期四的课程-->
+                <LinearLayout
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                </LinearLayout>
+
+                <!--竖分割线-->
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#bbb"/>
+
+                <!--星期五的课程-->
+                <LinearLayout
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                </LinearLayout>
+
+                <!--竖分割线-->
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#bbb"/>
+
+                <!--星期六的课程-->
+                <LinearLayout
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                </LinearLayout>
+
+                <!--竖分割线-->
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#bbb"/>
+
+                <!--星期日的课程-->
+                <LinearLayout
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+        </ScrollView>
+
+    </LinearLayout>
+
 
 </RelativeLayout>
