@@ -29,6 +29,7 @@
 
             <!--周一-->
             <TextView
+                android:id="@+id/tv_2"
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="match_parent"
@@ -44,6 +45,7 @@
 
             <!--周二-->
             <TextView
+                android:id="@+id/tv_3"
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="match_parent"
@@ -59,6 +61,7 @@
 
             <!--周三-->
             <TextView
+                android:id="@+id/tv_4"
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="match_parent"
@@ -74,6 +77,7 @@
 
             <!--周四-->
             <TextView
+                android:id="@+id/tv_5"
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="match_parent"
@@ -89,6 +93,7 @@
 
             <!--周五-->
             <TextView
+                android:id="@+id/tv_6"
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="match_parent"
@@ -104,6 +109,7 @@
 
             <!--周六-->
             <TextView
+                android:id="@+id/tv_7"
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="match_parent"
@@ -119,6 +125,7 @@
 
             <!--周日-->
             <TextView
+                android:id="@+id/tv_1"
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="match_parent"
@@ -342,7 +349,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="#bbb"/>
+                    android:background="#ddd"/>
 
                 <!--星期二的课程-->
                 <LinearLayout
@@ -358,7 +365,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="#bbb"/>
+                    android:background="#ddd"/>
 
                 <!--星期三的课程-->
                 <LinearLayout
@@ -374,7 +381,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="#bbb"/>
+                    android:background="#ddd"/>
 
                 <!--星期四的课程-->
                 <LinearLayout
@@ -390,7 +397,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="#bbb"/>
+                    android:background="#ddd"/>
 
                 <!--星期五的课程-->
                 <LinearLayout
@@ -406,7 +413,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="#bbb"/>
+                    android:background="#ddd"/>
 
                 <!--星期六的课程-->
                 <LinearLayout
@@ -422,7 +429,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="#bbb"/>
+                    android:background="#ddd"/>
 
                 <!--星期日的课程-->
                 <LinearLayout
