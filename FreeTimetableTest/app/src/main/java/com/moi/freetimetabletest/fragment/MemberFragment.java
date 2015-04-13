@@ -256,6 +256,16 @@ public class MemberFragment extends Fragment implements View.OnClickListener, Ad
         values.clear();
         values.put("member_name", memberName);
         values.put("tableId", tableId);
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 12; j++) {
+                values.put("class_" + i + "_" + j, 0);
+            }
+        }
+        for (int i = 5; i < 7; i++) {
+            for (int j = 0; j < 12; j++) {
+                values.put("class_" + i + "_" + j, 1);
+            }
+        }
         db.insert("member", null, values);
 
         Member member = new Member(memberName);

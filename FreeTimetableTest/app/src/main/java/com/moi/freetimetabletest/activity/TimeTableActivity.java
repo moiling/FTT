@@ -60,6 +60,8 @@ public class TimeTableActivity extends ActionBarActivity implements View.OnClick
 
     private List<Fragment> fragList;
 
+    private MyFragmentPagerAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +105,7 @@ public class TimeTableActivity extends ActionBarActivity implements View.OnClick
         fragList.add(new TimetableFragment());
         fragList.add(new MemberFragment());
 
-        MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), fragList);
+        adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), fragList);
         mViewPager.setAdapter(adapter);
 
         mViewPager.setOnPageChangeListener(new InternalViewPagerListener());
@@ -170,12 +172,10 @@ public class TimeTableActivity extends ActionBarActivity implements View.OnClick
                 case 0:
                     tab1.setTextColor(getResources().getColor(R.color.white));
                     tab2.setTextColor(getResources().getColor(R.color.light_primary_color));
-
                     break;
                 case 1:
                     tab1.setTextColor(getResources().getColor(R.color.light_primary_color));
                     tab2.setTextColor(getResources().getColor(R.color.white));
-
                     break;
             }
         }
@@ -234,11 +234,9 @@ public class TimeTableActivity extends ActionBarActivity implements View.OnClick
         switch (v.getId()) {
             case R.id.tv_1:
                 mViewPager.setCurrentItem(0);
-
                 break;
             case R.id.tv_2:
                 mViewPager.setCurrentItem(1);
-
                 break;
         }
     }

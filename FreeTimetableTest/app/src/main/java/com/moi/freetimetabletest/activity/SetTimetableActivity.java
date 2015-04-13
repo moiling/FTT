@@ -1,7 +1,10 @@
 package com.moi.freetimetabletest.activity;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -13,9 +16,11 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.moi.freetimetabletest.R;
+import com.moi.freetimetabletest.db.MemberDatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,6 +135,16 @@ public class SetTimetableActivity extends ActionBarActivity implements View.OnCl
 
     private List<ImageButton> imageButtonList = new ArrayList<ImageButton>();
 
+    private TextView save;
+
+    //数据库
+
+    private MemberDatabaseHelper dbHelper;
+
+    private SQLiteDatabase db;
+
+    private ContentValues values;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,20 +154,32 @@ public class SetTimetableActivity extends ActionBarActivity implements View.OnCl
         memberName = getIntent().getStringExtra("member_name");
         memberId = getIntent().getIntExtra("member_id", 0);
 
-        // 初始化前五天全为零，后两天为1……
         ischeck = new int[7][12];
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 12; j++) {
-                ischeck[i][j] = 0;
-            }
+
+        // 创建数据库
+        dbHelper = new MemberDatabaseHelper(this, "Member.db", null, 1);
+        dbHelper.getWritableDatabase();
+        db = dbHelper.getWritableDatabase();
+        values = new ContentValues();
+
+        // 绑定list
+        Cursor cursor = db.rawQuery("select * from member where id=?",
+                new String[] { memberId + "" });
+        if (cursor.moveToFirst()) {
+            do {
+                for (int i = 0; i < 7; i++) {
+                    for (int j = 0; j < 12; j++) {
+                        int number = cursor.getInt(cursor.getColumnIndex("class_" + i + "_" + j));
+                        Log.d("number", number + "");
+                        ischeck[i][j] = number;
+                    }
+                }
+            } while (cursor.moveToNext());
         }
-        for (int i = 5; i < 7; i++) {
-            for (int j = 0; j < 12; j++) {
-                ischeck[i][j] = 1;
-            }
-        }
+        cursor.close();
 
         initClass();
+        init();
 
         // 初始化imageButtonList
         initImageButtonList();
@@ -171,6 +198,11 @@ public class SetTimetableActivity extends ActionBarActivity implements View.OnCl
 
         setToolbar();
 
+    }
+
+    private void init() {
+        save = (TextView) findViewById(R.id.tv_save);
+        save.setOnClickListener(this);
     }
 
     private void initImageButtonList() {
@@ -265,7 +297,6 @@ public class SetTimetableActivity extends ActionBarActivity implements View.OnCl
         imageButtonList.add(class_6_10);
         imageButtonList.add(class_6_11);
     }
-
 
     private void initClass() {
         class_0_0 = (ImageButton) findViewById(R.id.bt_class_0_0);
@@ -505,1103 +536,300 @@ public class SetTimetableActivity extends ActionBarActivity implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bt_class_0_0:
-                if (ischeck[0][0] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_0_0.startAnimation(alphaAnimation);
-                    class_0_0.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[0][0] = 1;
-                } else {
-                    class_0_0.setImageDrawable(null);
-                    ischeck[0][0] = 0;
-                }
+                classClick(0, 0);
                 break;
             case R.id.bt_class_0_1:
-                if (ischeck[0][1] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_0_1.startAnimation(alphaAnimation);
-                    class_0_1.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[0][1] = 1;
-                } else {
-                    class_0_1.setImageDrawable(null);
-                    ischeck[0][1] = 0;
-                }
+                classClick(0, 1);
                 break;
             case R.id.bt_class_0_2:
-                if (ischeck[0][2] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_0_2.startAnimation(alphaAnimation);
-                    class_0_2.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[0][2] = 1;
-                } else {
-                    class_0_2.setImageDrawable(null);
-                    ischeck[0][2] = 0;
-                }
+                classClick(0, 2);
                 break;
             case R.id.bt_class_0_3:
-                if (ischeck[0][3] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_0_3.startAnimation(alphaAnimation);
-                    class_0_3.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[0][3] = 1;
-                } else {
-                    class_0_3.setImageDrawable(null);
-                    ischeck[0][3] = 0;
-                }
+                classClick(0, 3);
                 break;
             case R.id.bt_class_0_4:
-                if (ischeck[0][4] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_0_4.startAnimation(alphaAnimation);
-                    class_0_4.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[0][4] = 1;
-                } else {
-                    class_0_4.setImageDrawable(null);
-                    ischeck[0][4] = 0;
-                }
+                classClick(0, 4);
                 break;
             case R.id.bt_class_0_5:
-                if (ischeck[0][5] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_0_5.startAnimation(alphaAnimation);
-                    class_0_5.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[0][5] = 1;
-                } else {
-                    class_0_5.setImageDrawable(null);
-                    ischeck[0][5] = 0;
-                }
+                classClick(0, 5);
                 break;
             case R.id.bt_class_0_6:
-                if (ischeck[0][6] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_0_6.startAnimation(alphaAnimation);
-                    class_0_6.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[0][6] = 1;
-                } else {
-                    class_0_6.setImageDrawable(null);
-                    ischeck[0][6] = 0;
-                }
+                classClick(0, 6);
                 break;
             case R.id.bt_class_0_7:
-                if (ischeck[0][7] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_0_7.startAnimation(alphaAnimation);
-                    class_0_7.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[0][7] = 1;
-                } else {
-                    class_0_7.setImageDrawable(null);
-                    ischeck[0][7] = 0;
-                }
+                classClick(0, 7);
                 break;
             case R.id.bt_class_0_8:
-                if (ischeck[0][8] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_0_8.startAnimation(alphaAnimation);
-                    class_0_8.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[0][8] = 1;
-                } else {
-                    class_0_8.setImageDrawable(null);
-                    ischeck[0][8] = 0;
-                }
+                classClick(0, 8);
                 break;
             case R.id.bt_class_0_9:
-                if (ischeck[0][9] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_0_9.startAnimation(alphaAnimation);
-                    class_0_9.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[0][9] = 1;
-                } else {
-                    class_0_9.setImageDrawable(null);
-                    ischeck[0][9] = 0;
-                }
+                classClick(0, 9);
                 break;
             case R.id.bt_class_0_10:
-                if (ischeck[0][10] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_0_10.startAnimation(alphaAnimation);
-                    class_0_10.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[0][10] = 1;
-                } else {
-                    class_0_10.setImageDrawable(null);
-                    ischeck[0][10] = 0;
-                }
+                classClick(0, 10);
                 break;
             case R.id.bt_class_0_11:
-                if (ischeck[0][11] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_0_11.startAnimation(alphaAnimation);
-                    class_0_11.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[0][11] = 1;
-                } else {
-                    class_0_11.setImageDrawable(null);
-                    ischeck[0][11] = 0;
-                }
+                classClick(0, 11);
                 break;
 
             case R.id.bt_class_1_0:
-                if (ischeck[1][0] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_1_0.startAnimation(alphaAnimation);
-                    class_1_0.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[1][0] = 1;
-                } else {
-                    class_1_0.setImageDrawable(null);
-                    ischeck[1][0] = 0;
-                }
+                classClick(1, 0);
                 break;
             case R.id.bt_class_1_1:
-                if (ischeck[1][1] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_1_1.startAnimation(alphaAnimation);
-                    class_1_1.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[1][1] = 1;
-                } else {
-                    class_1_1.setImageDrawable(null);
-                    ischeck[1][1] = 0;
-                }
+                classClick(1, 1);
                 break;
             case R.id.bt_class_1_2:
-                if (ischeck[1][2] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_1_2.startAnimation(alphaAnimation);
-                    class_1_2.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[1][2] = 1;
-                } else {
-                    class_1_2.setImageDrawable(null);
-                    ischeck[1][2] = 0;
-                }
+                classClick(1, 2);
                 break;
             case R.id.bt_class_1_3:
-                if (ischeck[1][3] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_1_3.startAnimation(alphaAnimation);
-                    class_1_3.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[1][3] = 1;
-                } else {
-                    class_1_3.setImageDrawable(null);
-                    ischeck[1][3] = 0;
-                }
+                classClick(1, 3);
                 break;
             case R.id.bt_class_1_4:
-                if (ischeck[1][4] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_1_4.startAnimation(alphaAnimation);
-                    class_1_4.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[1][4] = 1;
-                } else {
-                    class_1_4.setImageDrawable(null);
-                    ischeck[1][4] = 0;
-                }
+                classClick(1, 4);
                 break;
             case R.id.bt_class_1_5:
-                if (ischeck[1][5] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_1_5.startAnimation(alphaAnimation);
-                    class_1_5.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[1][5] = 1;
-                } else {
-                    class_1_5.setImageDrawable(null);
-                    ischeck[1][5] = 0;
-                }
+                classClick(1, 5);
                 break;
             case R.id.bt_class_1_6:
-                if (ischeck[1][6] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_1_6.startAnimation(alphaAnimation);
-                    class_1_6.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[1][6] = 1;
-                } else {
-                    class_1_6.setImageDrawable(null);
-                    ischeck[1][6] = 0;
-                }
+                classClick(1, 6);
                 break;
             case R.id.bt_class_1_7:
-                if (ischeck[1][7] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_1_7.startAnimation(alphaAnimation);
-                    class_1_7.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[1][7] = 1;
-                } else {
-                    class_1_7.setImageDrawable(null);
-                    ischeck[1][7] = 0;
-                }
+                classClick(1, 7);
                 break;
             case R.id.bt_class_1_8:
-                if (ischeck[1][8] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_1_8.startAnimation(alphaAnimation);
-                    class_1_8.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[1][8] = 1;
-                } else {
-                    class_1_8.setImageDrawable(null);
-                    ischeck[1][8] = 0;
-                }
+                classClick(1, 8);
                 break;
             case R.id.bt_class_1_9:
-                if (ischeck[1][9] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_1_9.startAnimation(alphaAnimation);
-                    class_1_9.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[1][9] = 1;
-                } else {
-                    class_1_9.setImageDrawable(null);
-                    ischeck[1][9] = 0;
-                }
+                classClick(1, 9);
                 break;
             case R.id.bt_class_1_10:
-                if (ischeck[1][10] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_1_10.startAnimation(alphaAnimation);
-                    class_1_10.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[1][10] = 1;
-                } else {
-                    class_1_10.setImageDrawable(null);
-                    ischeck[1][10] = 0;
-                }
+                classClick(1, 10);
                 break;
             case R.id.bt_class_1_11:
-                if (ischeck[1][11] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_1_11.startAnimation(alphaAnimation);
-                    class_1_11.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[1][11] = 1;
-                } else {
-                    class_1_11.setImageDrawable(null);
-                    ischeck[1][11] = 0;
-                }
+                classClick(1, 11);
                 break;
 
             case R.id.bt_class_2_0:
-                if (ischeck[2][0] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_2_0.startAnimation(alphaAnimation);
-                    class_2_0.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[2][0] = 1;
-                } else {
-                    class_2_0.setImageDrawable(null);
-                    ischeck[2][0] = 0;
-                }
+                classClick(2, 0);
                 break;
             case R.id.bt_class_2_1:
-                if (ischeck[2][1] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_2_1.startAnimation(alphaAnimation);
-                    class_2_1.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[2][1] = 1;
-                } else {
-                    class_2_1.setImageDrawable(null);
-                    ischeck[2][1] = 0;
-                }
+                classClick(2, 1);
                 break;
             case R.id.bt_class_2_2:
-                if (ischeck[2][2] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_2_2.startAnimation(alphaAnimation);
-                    class_2_2.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[2][2] = 1;
-                } else {
-                    class_2_2.setImageDrawable(null);
-                    ischeck[2][2] = 0;
-                }
+                classClick(2, 2);
                 break;
             case R.id.bt_class_2_3:
-                if (ischeck[2][3] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_2_3.startAnimation(alphaAnimation);
-                    class_2_3.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[2][3] = 1;
-                } else {
-                    class_2_3.setImageDrawable(null);
-                    ischeck[2][3] = 0;
-                }
+                classClick(2, 3);
                 break;
             case R.id.bt_class_2_4:
-                if (ischeck[2][4] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_2_4.startAnimation(alphaAnimation);
-                    class_2_4.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[2][4] = 1;
-                } else {
-                    class_2_4.setImageDrawable(null);
-                    ischeck[2][4] = 0;
-                }
+                classClick(2, 4);
                 break;
             case R.id.bt_class_2_5:
-                if (ischeck[2][5] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_2_5.startAnimation(alphaAnimation);
-                    class_2_5.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[2][5] = 1;
-                } else {
-                    class_2_5.setImageDrawable(null);
-                    ischeck[2][5] = 0;
-                }
+                classClick(2, 5);
                 break;
             case R.id.bt_class_2_6:
-                if (ischeck[2][6] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_2_6.startAnimation(alphaAnimation);
-                    class_2_6.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[2][6] = 1;
-                } else {
-                    class_2_6.setImageDrawable(null);
-                    ischeck[2][6] = 0;
-                }
+                classClick(2, 6);
                 break;
             case R.id.bt_class_2_7:
-                if (ischeck[2][7] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_2_7.startAnimation(alphaAnimation);
-                    class_2_7.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[2][7] = 1;
-                } else {
-                    class_2_7.setImageDrawable(null);
-                    ischeck[2][7] = 0;
-                }
+                classClick(2, 7);
                 break;
             case R.id.bt_class_2_8:
-                if (ischeck[2][8] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_2_8.startAnimation(alphaAnimation);
-                    class_2_8.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[2][8] = 1;
-                } else {
-                    class_2_8.setImageDrawable(null);
-                    ischeck[2][8] = 0;
-                }
+                classClick(2, 8);
                 break;
             case R.id.bt_class_2_9:
-                if (ischeck[2][9] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_2_9.startAnimation(alphaAnimation);
-                    class_2_9.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[2][9] = 1;
-                } else {
-                    class_2_9.setImageDrawable(null);
-                    ischeck[2][9] = 0;
-                }
+                classClick(2, 9);
                 break;
             case R.id.bt_class_2_10:
-                if (ischeck[2][10] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_2_10.startAnimation(alphaAnimation);
-                    class_2_10.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[2][10] = 1;
-                } else {
-                    class_2_10.setImageDrawable(null);
-                    ischeck[2][10] = 0;
-                }
+                classClick(2, 10);
                 break;
             case R.id.bt_class_2_11:
-                if (ischeck[2][11] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_2_11.startAnimation(alphaAnimation);
-                    class_2_11.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[2][11] = 1;
-                } else {
-                    class_2_11.setImageDrawable(null);
-                    ischeck[2][11] = 0;
-                }
+                classClick(2, 11);
                 break;
 
             case R.id.bt_class_3_0:
-                if (ischeck[3][0] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_3_0.startAnimation(alphaAnimation);
-                    class_3_0.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[3][0] = 1;
-                } else {
-                    class_3_0.setImageDrawable(null);
-                    ischeck[3][0] = 0;
-                }
+                classClick(3, 0);
                 break;
             case R.id.bt_class_3_1:
-                if (ischeck[3][1] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_3_1.startAnimation(alphaAnimation);
-                    class_3_1.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[3][1] = 1;
-                } else {
-                    class_3_1.setImageDrawable(null);
-                    ischeck[3][1] = 0;
-                }
+                classClick(3, 1);
                 break;
             case R.id.bt_class_3_2:
-                if (ischeck[3][2] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_3_2.startAnimation(alphaAnimation);
-                    class_3_2.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[3][2] = 1;
-                } else {
-                    class_3_2.setImageDrawable(null);
-                    ischeck[3][2] = 0;
-                }
+                classClick(3, 2);
                 break;
             case R.id.bt_class_3_3:
-                if (ischeck[3][3] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_3_3.startAnimation(alphaAnimation);
-                    class_3_3.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[3][3] = 1;
-                } else {
-                    class_3_3.setImageDrawable(null);
-                    ischeck[3][3] = 0;
-                }
+                classClick(3, 3);
                 break;
             case R.id.bt_class_3_4:
-                if (ischeck[3][4] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_3_4.startAnimation(alphaAnimation);
-                    class_3_4.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[3][4] = 1;
-                } else {
-                    class_3_4.setImageDrawable(null);
-                    ischeck[3][4] = 0;
-                }
+                classClick(3, 4);
                 break;
             case R.id.bt_class_3_5:
-                if (ischeck[3][5] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_3_5.startAnimation(alphaAnimation);
-                    class_3_5.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[3][5] = 1;
-                } else {
-                    class_3_5.setImageDrawable(null);
-                    ischeck[3][5] = 0;
-                }
+                classClick(3, 5);
                 break;
             case R.id.bt_class_3_6:
-                if (ischeck[3][6] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_3_6.startAnimation(alphaAnimation);
-                    class_3_6.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[3][6] = 1;
-                } else {
-                    class_3_6.setImageDrawable(null);
-                    ischeck[3][6] = 0;
-                }
+                classClick(3, 6);
                 break;
             case R.id.bt_class_3_7:
-                if (ischeck[3][7] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_3_7.startAnimation(alphaAnimation);
-                    class_3_7.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[3][7] = 1;
-                } else {
-                    class_3_7.setImageDrawable(null);
-                    ischeck[3][7] = 0;
-                }
+                classClick(3, 7);
                 break;
             case R.id.bt_class_3_8:
-                if (ischeck[3][8] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_3_8.startAnimation(alphaAnimation);
-                    class_3_8.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[3][8] = 1;
-                } else {
-                    class_3_8.setImageDrawable(null);
-                    ischeck[3][8] = 0;
-                }
+                classClick(3, 8);
                 break;
             case R.id.bt_class_3_9:
-                if (ischeck[3][9] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_3_9.startAnimation(alphaAnimation);
-                    class_3_9.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[3][9] = 1;
-                } else {
-                    class_3_9.setImageDrawable(null);
-                    ischeck[3][9] = 0;
-                }
+                classClick(3, 9);
                 break;
             case R.id.bt_class_3_10:
-                if (ischeck[3][10] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_3_10.startAnimation(alphaAnimation);
-                    class_3_10.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[3][10] = 1;
-                } else {
-                    class_3_10.setImageDrawable(null);
-                    ischeck[3][10] = 0;
-                }
+                classClick(3, 10);
                 break;
             case R.id.bt_class_3_11:
-                if (ischeck[3][11] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_3_11.startAnimation(alphaAnimation);
-                    class_3_11.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[3][11] = 1;
-                } else {
-                    class_3_11.setImageDrawable(null);
-                    ischeck[3][11] = 0;
-                }
+                classClick(3, 11);
                 break;
 
             case R.id.bt_class_4_0:
-                if (ischeck[4][0] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_4_0.startAnimation(alphaAnimation);
-                    class_4_0.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[4][0] = 1;
-                } else {
-                    class_4_0.setImageDrawable(null);
-                    ischeck[4][0] = 0;
-                }
+                classClick(4, 0);
                 break;
             case R.id.bt_class_4_1:
-                if (ischeck[4][1] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_4_1.startAnimation(alphaAnimation);
-                    class_4_1.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[4][1] = 1;
-                } else {
-                    class_4_1.setImageDrawable(null);
-                    ischeck[4][1] = 0;
-                }
+                classClick(4, 1);
                 break;
             case R.id.bt_class_4_2:
-                if (ischeck[4][2] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_4_2.startAnimation(alphaAnimation);
-                    class_4_2.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[4][2] = 1;
-                } else {
-                    class_4_2.setImageDrawable(null);
-                    ischeck[4][2] = 0;
-                }
+                classClick(4, 2);
                 break;
             case R.id.bt_class_4_3:
-                if (ischeck[4][3] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_4_3.startAnimation(alphaAnimation);
-                    class_4_3.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[4][3] = 1;
-                } else {
-                    class_4_3.setImageDrawable(null);
-                    ischeck[4][3] = 0;
-                }
+                classClick(4, 3);
                 break;
             case R.id.bt_class_4_4:
-                if (ischeck[4][4] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_4_4.startAnimation(alphaAnimation);
-                    class_4_4.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[4][4] = 1;
-                } else {
-                    class_4_4.setImageDrawable(null);
-                    ischeck[4][4] = 0;
-                }
+                classClick(4, 4);
                 break;
             case R.id.bt_class_4_5:
-                if (ischeck[4][5] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_4_5.startAnimation(alphaAnimation);
-                    class_4_5.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[4][5] = 1;
-                } else {
-                    class_4_5.setImageDrawable(null);
-                    ischeck[4][5] = 0;
-                }
+                classClick(4, 5);
                 break;
             case R.id.bt_class_4_6:
-                if (ischeck[4][6] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_4_6.startAnimation(alphaAnimation);
-                    class_4_6.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[4][6] = 1;
-                } else {
-                    class_4_6.setImageDrawable(null);
-                    ischeck[4][6] = 0;
-                }
+                classClick(4, 6);
                 break;
             case R.id.bt_class_4_7:
-                if (ischeck[4][7] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_4_7.startAnimation(alphaAnimation);
-                    class_4_7.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[4][7] = 1;
-                } else {
-                    class_4_7.setImageDrawable(null);
-                    ischeck[4][7] = 0;
-                }
+                classClick(4, 7);
                 break;
             case R.id.bt_class_4_8:
-                if (ischeck[4][8] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_4_8.startAnimation(alphaAnimation);
-                    class_4_8.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[4][8] = 1;
-                } else {
-                    class_4_8.setImageDrawable(null);
-                    ischeck[4][8] = 0;
-                }
+                classClick(4, 8);
                 break;
             case R.id.bt_class_4_9:
-                if (ischeck[4][9] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_4_9.startAnimation(alphaAnimation);
-                    class_4_9.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[4][9] = 1;
-                } else {
-                    class_4_9.setImageDrawable(null);
-                    ischeck[4][9] = 0;
-                }
+                classClick(4, 9);
                 break;
             case R.id.bt_class_4_10:
-                if (ischeck[4][10] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_4_10.startAnimation(alphaAnimation);
-                    class_4_10.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[4][10] = 1;
-                } else {
-                    class_4_10.setImageDrawable(null);
-                    ischeck[4][10] = 0;
-                }
+                classClick(4, 10);
                 break;
             case R.id.bt_class_4_11:
-                if (ischeck[4][11] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_4_11.startAnimation(alphaAnimation);
-                    class_4_11.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[4][11] = 1;
-                } else {
-                    class_4_11.setImageDrawable(null);
-                    ischeck[4][11] = 0;
-                }
+                classClick(4, 11);
                 break;
 
             case R.id.bt_class_5_0:
-                if (ischeck[5][0] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_5_0.startAnimation(alphaAnimation);
-                    class_5_0.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[5][0] = 1;
-                } else {
-                    class_5_0.setImageDrawable(null);
-                    ischeck[5][0] = 0;
-                }
+                classClick(5, 0);
                 break;
             case R.id.bt_class_5_1:
-                if (ischeck[5][1] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_5_1.startAnimation(alphaAnimation);
-                    class_5_1.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[5][1] = 1;
-                } else {
-                    class_5_1.setImageDrawable(null);
-                    ischeck[5][1] = 0;
-                }
+                classClick(5, 1);
                 break;
             case R.id.bt_class_5_2:
-                if (ischeck[5][2] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_5_2.startAnimation(alphaAnimation);
-                    class_5_2.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[5][2] = 1;
-                } else {
-                    class_5_2.setImageDrawable(null);
-                    ischeck[5][2] = 0;
-                }
+                classClick(5, 2);
                 break;
             case R.id.bt_class_5_3:
-                if (ischeck[5][3] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_5_3.startAnimation(alphaAnimation);
-                    class_5_3.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[5][3] = 1;
-                } else {
-                    class_5_3.setImageDrawable(null);
-                    ischeck[5][3] = 0;
-                }
+                classClick(5, 3);
                 break;
             case R.id.bt_class_5_4:
-                if (ischeck[5][4] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_5_4.startAnimation(alphaAnimation);
-                    class_5_4.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[5][4] = 1;
-                } else {
-                    class_5_4.setImageDrawable(null);
-                    ischeck[5][4] = 0;
-                }
+                classClick(5, 4);
                 break;
             case R.id.bt_class_5_5:
-                if (ischeck[5][5] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_5_5.startAnimation(alphaAnimation);
-                    class_5_5.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[5][5] = 1;
-                } else {
-                    class_5_5.setImageDrawable(null);
-                    ischeck[5][5] = 0;
-                }
+                classClick(5, 5);
                 break;
             case R.id.bt_class_5_6:
-                if (ischeck[5][6] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_5_6.startAnimation(alphaAnimation);
-                    class_5_6.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[5][6] = 1;
-                } else {
-                    class_5_6.setImageDrawable(null);
-                    ischeck[5][6] = 0;
-                }
+                classClick(5, 6);
                 break;
             case R.id.bt_class_5_7:
-                if (ischeck[5][7] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_5_7.startAnimation(alphaAnimation);
-                    class_5_7.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[5][7] = 1;
-                } else {
-                    class_5_7.setImageDrawable(null);
-                    ischeck[5][7] = 0;
-                }
+                classClick(5, 7);
                 break;
             case R.id.bt_class_5_8:
-                if (ischeck[5][8] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_5_8.startAnimation(alphaAnimation);
-                    class_5_8.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[5][8] = 1;
-                } else {
-                    class_5_8.setImageDrawable(null);
-                    ischeck[5][8] = 0;
-                }
+                classClick(5, 8);
                 break;
             case R.id.bt_class_5_9:
-                if (ischeck[5][9] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_5_9.startAnimation(alphaAnimation);
-                    class_5_9.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[5][9] = 1;
-                } else {
-                    class_5_9.setImageDrawable(null);
-                    ischeck[5][9] = 0;
-                }
+                classClick(5, 9);
                 break;
             case R.id.bt_class_5_10:
-                if (ischeck[5][10] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_5_10.startAnimation(alphaAnimation);
-                    class_5_10.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[5][10] = 1;
-                } else {
-                    class_5_10.setImageDrawable(null);
-                    ischeck[5][10] = 0;
-                }
+                classClick(5, 10);
                 break;
             case R.id.bt_class_5_11:
-                if (ischeck[5][11] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_5_11.startAnimation(alphaAnimation);
-                    class_5_11.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[5][11] = 1;
-                } else {
-                    class_5_11.setImageDrawable(null);
-                    ischeck[5][11] = 0;
-                }
+                classClick(5, 11);
                 break;
 
             case R.id.bt_class_6_0:
-                if (ischeck[6][0] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_6_0.startAnimation(alphaAnimation);
-                    class_6_0.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[6][0] = 1;
-                } else {
-                    class_6_0.setImageDrawable(null);
-                    ischeck[6][0] = 0;
-                }
+                classClick(6, 0);
                 break;
             case R.id.bt_class_6_1:
-                if (ischeck[6][1] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_6_1.startAnimation(alphaAnimation);
-                    class_6_1.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[6][1] = 1;
-                } else {
-                    class_6_1.setImageDrawable(null);
-                    ischeck[6][1] = 0;
-                }
+                classClick(6, 1);
                 break;
             case R.id.bt_class_6_2:
-                if (ischeck[6][2] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_6_2.startAnimation(alphaAnimation);
-                    class_6_2.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[6][2] = 1;
-                } else {
-                    class_6_2.setImageDrawable(null);
-                    ischeck[6][2] = 0;
-                }
+                classClick(6, 2);
                 break;
             case R.id.bt_class_6_3:
-                if (ischeck[6][3] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_6_3.startAnimation(alphaAnimation);
-                    class_6_3.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[6][3] = 1;
-                } else {
-                    class_6_3.setImageDrawable(null);
-                    ischeck[6][3] = 0;
-                }
+                classClick(6, 3);
                 break;
             case R.id.bt_class_6_4:
-                if (ischeck[6][4] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_6_4.startAnimation(alphaAnimation);
-                    class_6_4.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[6][4] = 1;
-                } else {
-                    class_6_4.setImageDrawable(null);
-                    ischeck[6][4] = 0;
-                }
+                classClick(6, 4);
                 break;
             case R.id.bt_class_6_5:
-                if (ischeck[6][5] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_6_5.startAnimation(alphaAnimation);
-                    class_6_5.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[6][5] = 1;
-                } else {
-                    class_6_5.setImageDrawable(null);
-                    ischeck[6][5] = 0;
-                }
+                classClick(6, 5);
                 break;
             case R.id.bt_class_6_6:
-                if (ischeck[6][6] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_6_6.startAnimation(alphaAnimation);
-                    class_6_6.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[6][6] = 1;
-                } else {
-                    class_6_6.setImageDrawable(null);
-                    ischeck[6][6] = 0;
-                }
+                classClick(6, 6);
                 break;
             case R.id.bt_class_6_7:
-                if (ischeck[6][7] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_6_7.startAnimation(alphaAnimation);
-                    class_6_7.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[6][7] = 1;
-                } else {
-                    class_6_7.setImageDrawable(null);
-                    ischeck[6][7] = 0;
-                }
+                classClick(6, 7);
                 break;
             case R.id.bt_class_6_8:
-                if (ischeck[6][8] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_6_8.startAnimation(alphaAnimation);
-                    class_6_8.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[6][8] = 1;
-                } else {
-                    class_6_8.setImageDrawable(null);
-                    ischeck[6][8] = 0;
-                }
+                classClick(6, 8);
                 break;
             case R.id.bt_class_6_9:
-                if (ischeck[6][9] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_6_9.startAnimation(alphaAnimation);
-                    class_6_9.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[6][9] = 1;
-                } else {
-                    class_6_9.setImageDrawable(null);
-                    ischeck[6][9] = 0;
-                }
+                classClick(6, 9);
                 break;
             case R.id.bt_class_6_10:
-                if (ischeck[6][10] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_6_10.startAnimation(alphaAnimation);
-                    class_6_10.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[6][10] = 1;
-                } else {
-                    class_6_10.setImageDrawable(null);
-                    ischeck[6][10] = 0;
-                }
+                classClick(6, 10);
                 break;
             case R.id.bt_class_6_11:
-                if (ischeck[6][11] == 0) {
-                    Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-                    //设置动画时间
-                    alphaAnimation.setDuration(500);
-                    class_6_11.startAnimation(alphaAnimation);
-                    class_6_11.setImageDrawable(getResources().getDrawable(R.mipmap.check));
-                    ischeck[6][11] = 1;
-                } else {
-                    class_6_11.setImageDrawable(null);
-                    ischeck[6][11] = 0;
+                classClick(6, 11);
+                break;
+
+
+
+            case R.id.tv_save:
+                //数据库
+                values.clear();
+                for (int i = 0; i < 7; i++) {
+                    for (int j = 0; j < 12; j++) {
+                        values.put("class_" + i + "_" + j, ischeck[i][j]);
+                    }
                 }
+                db.update("member", values, "id = ?", new String[] { memberId + ""});
+                Animation alphaAnimation = new AlphaAnimation(1.0f, 0.1f);
+                //设置动画时间
+                alphaAnimation.setDuration(250);
+                save.startAnimation(alphaAnimation);
+                save.setVisibility(View.GONE);
                 break;
         }
+    }
+
+    private void classClick(int line, int row) {
+        if (ischeck[line][row] == 0) {
+            Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
+            //设置动画时间
+            alphaAnimation.setDuration(250);
+            imageButtonList.get(line * 12 + row).startAnimation(alphaAnimation);
+            imageButtonList.get(line * 12 + row).setImageDrawable(getResources().getDrawable(R.mipmap.check));
+            ischeck[line][row] = 1;
+        } else {
+            imageButtonList.get(line * 12 + row).setImageDrawable(null);
+            ischeck[line][row] = 0;
+        }
+        Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
+        //设置动画时间
+        alphaAnimation.setDuration(250);
+        save.startAnimation(alphaAnimation);
+        save.setVisibility(View.VISIBLE);
     }
 }
