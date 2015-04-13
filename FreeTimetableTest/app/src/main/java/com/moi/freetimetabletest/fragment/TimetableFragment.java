@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.moi.freetimetabletest.R;
+import com.moi.freetimetabletest.activity.FreeMembersActivity;
 import com.moi.freetimetabletest.db.MemberDatabaseHelper;
 
 import java.util.ArrayList;
@@ -137,12 +138,22 @@ public class TimetableFragment extends Fragment implements View.OnClickListener{
 
     private List<Integer> idList = new ArrayList<Integer>();
 
+    private LayoutInflater inflater;
+    private ViewGroup container;
+    private Bundle savedInstanceState;
+    private String tableName;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d("en", "onCreateView");
+        this.inflater = inflater;
+        this.container = container;
+        this.savedInstanceState = savedInstanceState;
         final View view = inflater.inflate(R.layout.fragment_timetable, container, false);
 
         tableId = getActivity().getIntent().getIntExtra("table_id", 0);
+        tableName = getActivity().getIntent().getStringExtra("table_name");
 
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 12; j++) {
@@ -156,40 +167,40 @@ public class TimetableFragment extends Fragment implements View.OnClickListener{
         db = dbHelper.getWritableDatabase();
         values = new ContentValues();
 
-        // 绑定list
-        Cursor cursor = db.rawQuery("select * from member where tableId=?",
-                new String[] { tableId + "" });
-        if (cursor.moveToFirst()) {
-            do {
-                int id = cursor.getInt(cursor.getColumnIndex("id"));
-                idList.add(id);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-
-        isFree = new String[7][12][idList.size()];
-
-        cursor = db.rawQuery("select * from member where tableId=?",
-                new String[] { tableId + "" });
-        if (cursor.moveToFirst()) {
-            do {
-                for (int i = 0; i < 7; i++) {
-                    for (int j = 0; j < 12; j++) {
-                        if (cursor.getInt(cursor.getColumnIndex("class_" + i + "_" + j)) == 1) {
-                            isFree[i][j][isFreeNumber[i][j]] = cursor.getString(cursor.getColumnIndex("member_name"));
-                            isFreeNumber[i][j]++;
-                        }
-                    }
+                // 绑定list
+                Cursor cursor = db.rawQuery("select * from member where tableId=?",
+                        new String[]{tableId + ""});
+                if (cursor.moveToFirst()) {
+                    do {
+                        int id = cursor.getInt(cursor.getColumnIndex("id"));
+                        idList.add(id);
+                    } while (cursor.moveToNext());
                 }
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
+                cursor.close();
+
+                isFree = new String[7][12][idList.size()];
+
+                cursor = db.rawQuery("select * from member where tableId=?",
+                        new String[]{tableId + ""});
+                if (cursor.moveToFirst()) {
+                    do {
+                        for (int i = 0; i < 7; i++) {
+                            for (int j = 0; j < 12; j++) {
+                                if (cursor.getInt(cursor.getColumnIndex("class_" + i + "_" + j)) == 1) {
+                                    isFree[i][j][isFreeNumber[i][j]] = cursor.getString(cursor.getColumnIndex("member_name"));
+                                    isFreeNumber[i][j]++;
+                                }
+                            }
+                        }
+                    } while (cursor.moveToNext());
+                }
+                cursor.close();
 
         // 获取星期
         calendar = Calendar.getInstance();
         calendar.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
         week = String.valueOf(calendar.get(Calendar.DAY_OF_WEEK));
-        
+
         switch (week) {
             case "1":
                 TextView textView = (TextView) view.findViewById(R.id.tv_1);
@@ -500,11 +511,36 @@ public class TimetableFragment extends Fragment implements View.OnClickListener{
     }
 
     private void showFreeTable() {
+        Log.d("en", "showFreeTable");
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 12; j++) {
                 Log.d("aaaaaaa", isFreeNumber[i][j] + "____" + idList.size());
                 if (isFreeNumber[i][j] == idList.size()) {
-                    imageButtonList.get(i * 12 + j).setBackgroundColor(getResources().getColor(R.color.green));
+                    if (j == 0) {
+                        if (isFreeNumber[i][j + 1] == idList.size()) {
+                            imageButtonList.get(i * 12 + j).setBackgroundColor(getResources().getColor(R.color.green));
+                        } else {
+                            imageButtonList.get(i * 12 + j).setImageDrawable(getResources().getDrawable(R.mipmap.class_down));
+                        }
+                    } else if (j == 11) {
+                        if (isFreeNumber[i][j - 1] == idList.size()) {
+                            imageButtonList.get(i * 12 + j).setBackgroundColor(getResources().getColor(R.color.green));
+                        } else {
+                            imageButtonList.get(i * 12 + j).setImageDrawable(getResources().getDrawable(R.mipmap.class_up));
+                        }
+                    } else {
+                        if (isFreeNumber[i][j + 1] == idList.size()) {
+                            if (isFreeNumber[i][j - 1] == idList.size()) {
+                                imageButtonList.get(i * 12 + j).setBackgroundColor(getResources().getColor(R.color.green));
+                            } else {
+                                imageButtonList.get(i * 12 + j).setImageDrawable(getResources().getDrawable(R.mipmap.class_up));
+                            }
+                        } else if (isFreeNumber[i][j - 1] == idList.size()) {
+                            imageButtonList.get(i * 12 + j).setImageDrawable(getResources().getDrawable(R.mipmap.class_down));
+                        } else {
+                            imageButtonList.get(i * 12 + j).setImageDrawable(getResources().getDrawable(R.mipmap.class_all));
+                        }
+                    }
                 }
             }
         }
@@ -513,6 +549,276 @@ public class TimetableFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.bt_class_0_0:
+                classClick(0, 0);
+                break;
+            case R.id.bt_class_0_1:
+                classClick(0, 1);
+                break;
+            case R.id.bt_class_0_2:
+                classClick(0, 2);
+                break;
+            case R.id.bt_class_0_3:
+                classClick(0, 3);
+                break;
+            case R.id.bt_class_0_4:
+                classClick(0, 4);
+                break;
+            case R.id.bt_class_0_5:
+                classClick(0, 5);
+                break;
+            case R.id.bt_class_0_6:
+                classClick(0, 6);
+                break;
+            case R.id.bt_class_0_7:
+                classClick(0, 7);
+                break;
+            case R.id.bt_class_0_8:
+                classClick(0, 8);
+                break;
+            case R.id.bt_class_0_9:
+                classClick(0, 9);
+                break;
+            case R.id.bt_class_0_10:
+                classClick(0, 10);
+                break;
+            case R.id.bt_class_0_11:
+                classClick(0, 11);
+                break;
 
+            case R.id.bt_class_1_0:
+                classClick(1, 0);
+                break;
+            case R.id.bt_class_1_1:
+                classClick(1, 1);
+                break;
+            case R.id.bt_class_1_2:
+                classClick(1, 2);
+                break;
+            case R.id.bt_class_1_3:
+                classClick(1, 3);
+                break;
+            case R.id.bt_class_1_4:
+                classClick(1, 4);
+                break;
+            case R.id.bt_class_1_5:
+                classClick(1, 5);
+                break;
+            case R.id.bt_class_1_6:
+                classClick(1, 6);
+                break;
+            case R.id.bt_class_1_7:
+                classClick(1, 7);
+                break;
+            case R.id.bt_class_1_8:
+                classClick(1, 8);
+                break;
+            case R.id.bt_class_1_9:
+                classClick(1, 9);
+                break;
+            case R.id.bt_class_1_10:
+                classClick(1, 10);
+                break;
+            case R.id.bt_class_1_11:
+                classClick(1, 11);
+                break;
+
+            case R.id.bt_class_2_0:
+                classClick(2, 0);
+                break;
+            case R.id.bt_class_2_1:
+                classClick(2, 1);
+                break;
+            case R.id.bt_class_2_2:
+                classClick(2, 2);
+                break;
+            case R.id.bt_class_2_3:
+                classClick(2, 3);
+                break;
+            case R.id.bt_class_2_4:
+                classClick(2, 4);
+                break;
+            case R.id.bt_class_2_5:
+                classClick(2, 5);
+                break;
+            case R.id.bt_class_2_6:
+                classClick(2, 6);
+                break;
+            case R.id.bt_class_2_7:
+                classClick(2, 7);
+                break;
+            case R.id.bt_class_2_8:
+                classClick(2, 8);
+                break;
+            case R.id.bt_class_2_9:
+                classClick(2, 9);
+                break;
+            case R.id.bt_class_2_10:
+                classClick(2, 10);
+                break;
+            case R.id.bt_class_2_11:
+                classClick(2, 11);
+                break;
+
+            case R.id.bt_class_3_0:
+                classClick(3, 0);
+                break;
+            case R.id.bt_class_3_1:
+                classClick(3, 1);
+                break;
+            case R.id.bt_class_3_2:
+                classClick(3, 2);
+                break;
+            case R.id.bt_class_3_3:
+                classClick(3, 3);
+                break;
+            case R.id.bt_class_3_4:
+                classClick(3, 4);
+                break;
+            case R.id.bt_class_3_5:
+                classClick(3, 5);
+                break;
+            case R.id.bt_class_3_6:
+                classClick(3, 6);
+                break;
+            case R.id.bt_class_3_7:
+                classClick(3, 7);
+                break;
+            case R.id.bt_class_3_8:
+                classClick(3, 8);
+                break;
+            case R.id.bt_class_3_9:
+                classClick(3, 9);
+                break;
+            case R.id.bt_class_3_10:
+                classClick(3, 10);
+                break;
+            case R.id.bt_class_3_11:
+                classClick(3, 11);
+                break;
+
+            case R.id.bt_class_4_0:
+                classClick(4, 0);
+                break;
+            case R.id.bt_class_4_1:
+                classClick(4, 1);
+                break;
+            case R.id.bt_class_4_2:
+                classClick(4, 2);
+                break;
+            case R.id.bt_class_4_3:
+                classClick(4, 3);
+                break;
+            case R.id.bt_class_4_4:
+                classClick(4, 4);
+                break;
+            case R.id.bt_class_4_5:
+                classClick(4, 5);
+                break;
+            case R.id.bt_class_4_6:
+                classClick(4, 6);
+                break;
+            case R.id.bt_class_4_7:
+                classClick(4, 7);
+                break;
+            case R.id.bt_class_4_8:
+                classClick(4, 8);
+                break;
+            case R.id.bt_class_4_9:
+                classClick(4, 9);
+                break;
+            case R.id.bt_class_4_10:
+                classClick(4, 10);
+                break;
+            case R.id.bt_class_4_11:
+                classClick(4, 11);
+                break;
+
+            case R.id.bt_class_5_0:
+                classClick(5, 0);
+                break;
+            case R.id.bt_class_5_1:
+                classClick(5, 1);
+                break;
+            case R.id.bt_class_5_2:
+                classClick(5, 2);
+                break;
+            case R.id.bt_class_5_3:
+                classClick(5, 3);
+                break;
+            case R.id.bt_class_5_4:
+                classClick(5, 4);
+                break;
+            case R.id.bt_class_5_5:
+                classClick(5, 5);
+                break;
+            case R.id.bt_class_5_6:
+                classClick(5, 6);
+                break;
+            case R.id.bt_class_5_7:
+                classClick(5, 7);
+                break;
+            case R.id.bt_class_5_8:
+                classClick(5, 8);
+                break;
+            case R.id.bt_class_5_9:
+                classClick(5, 9);
+                break;
+            case R.id.bt_class_5_10:
+                classClick(5, 10);
+                break;
+            case R.id.bt_class_5_11:
+                classClick(5, 11);
+                break;
+
+            case R.id.bt_class_6_0:
+                classClick(6, 0);
+                break;
+            case R.id.bt_class_6_1:
+                classClick(6, 1);
+                break;
+            case R.id.bt_class_6_2:
+                classClick(6, 2);
+                break;
+            case R.id.bt_class_6_3:
+                classClick(6, 3);
+                break;
+            case R.id.bt_class_6_4:
+                classClick(6, 4);
+                break;
+            case R.id.bt_class_6_5:
+                classClick(6, 5);
+                break;
+            case R.id.bt_class_6_6:
+                classClick(6, 6);
+                break;
+            case R.id.bt_class_6_7:
+                classClick(6, 7);
+                break;
+            case R.id.bt_class_6_8:
+                classClick(6, 8);
+                break;
+            case R.id.bt_class_6_9:
+                classClick(6, 9);
+                break;
+            case R.id.bt_class_6_10:
+                classClick(6, 10);
+                break;
+            case R.id.bt_class_6_11:
+                classClick(6, 11);
+                break;
+        }
     }
+
+    private void classClick(int line, int low) {
+        String message = "";
+        for (int i = 0; i < isFreeNumber[line][low]; i++) {
+            message += isFree[line][low][i];
+            message += "\n";
+        }
+        FreeMembersActivity.actionStart(getActivity().getApplicationContext(), message, tableId, tableName, line, low);
+    }
+
+
 }

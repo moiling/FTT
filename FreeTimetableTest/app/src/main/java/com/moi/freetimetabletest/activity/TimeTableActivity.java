@@ -35,6 +35,7 @@ public class TimeTableActivity extends ActionBarActivity implements View.OnClick
         Intent intent = new Intent(context, TimeTableActivity.class);
         intent.putExtra("table_name", tableName);
         intent.putExtra("table_id", tableId);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
         context.startActivity(intent);
     }
 
@@ -163,7 +164,7 @@ public class TimeTableActivity extends ActionBarActivity implements View.OnClick
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            color.setX((position + positionOffset) *getScreenWidth(getApplicationContext()) / 2);
+            color.setX((position + positionOffset) * getScreenWidth(getApplicationContext()) / 2);
         }
 
         @Override
@@ -237,7 +238,20 @@ public class TimeTableActivity extends ActionBarActivity implements View.OnClick
                 break;
             case R.id.tv_2:
                 mViewPager.setCurrentItem(1);
+
                 break;
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        finish();
     }
 }

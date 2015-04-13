@@ -75,12 +75,15 @@ public class MemberFragment extends Fragment implements View.OnClickListener, Ad
 
     private List<Integer> idList = new ArrayList<Integer>();
 
+    private String tableName;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_member, container, false);
 
         tableId = getActivity().getIntent().getIntExtra("table_id", 0);
+        tableName = getActivity().getIntent().getStringExtra("table_name");
 
        // 创建数据库
         dbHelper = new MemberDatabaseHelper(getActivity().getApplicationContext(), "Member.db", null, 1);
@@ -340,7 +343,7 @@ public class MemberFragment extends Fragment implements View.OnClickListener, Ad
                 idList.add(memberId);
             } while (cursor.moveToNext());
         }
-        SetTimetableActivity.actionStart(view.getContext(), member.getName(), idList.get(position));
+        SetTimetableActivity.actionStart(view.getContext(), member.getName(), idList.get(position), tableId, tableName);
         // 不清空数据全乱了
         idList.clear();
     }

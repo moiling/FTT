@@ -7,9 +7,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,14 +29,21 @@ import java.util.List;
 
 public class SetTimetableActivity extends ActionBarActivity implements View.OnClickListener {
 
-    public static void actionStart(Context context, String memberName, int memberId) {
+    public static void actionStart(Context context, String memberName, int memberId, int tableId, String tableName) {
         Intent intent = new Intent(context, SetTimetableActivity.class);
         intent.putExtra("member_name", memberName);
         intent.putExtra("member_id", memberId);
+        intent.putExtra("table_id", tableId);
+        intent.putExtra("table_name", tableName);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
         context.startActivity(intent);
     }
 
+    private int tableId;
+
     private int memberId;
+
+    private String tableName;
 
     private String memberName;
 
@@ -152,7 +161,9 @@ public class SetTimetableActivity extends ActionBarActivity implements View.OnCl
         setContentView(R.layout.activity_set_timetable);
 
         memberName = getIntent().getStringExtra("member_name");
+        tableName = getIntent().getStringExtra("table_name");
         memberId = getIntent().getIntExtra("member_id", 0);
+        tableId = getIntent().getIntExtra("table_id", 0);
 
         ischeck = new int[7][12];
 
@@ -493,6 +504,14 @@ public class SetTimetableActivity extends ActionBarActivity implements View.OnCl
                         break;
                     case ARROW:
                         materialMenu.animateIconState(MaterialMenuDrawable.IconState.ARROW, false);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                TimeTableActivity.actionStart(getApplicationContext(), tableName, tableId);
+
+                                overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
+                            }
+                        }, 0);
                         finish();
                         break;
                     case X:
@@ -831,5 +850,14 @@ public class SetTimetableActivity extends ActionBarActivity implements View.OnCl
         alphaAnimation.setDuration(250);
         save.startAnimation(alphaAnimation);
         save.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            TimeTableActivity.actionStart(getApplicationContext(), tableName, tableId);
+            finish();
+        }
+        return true;
     }
 }

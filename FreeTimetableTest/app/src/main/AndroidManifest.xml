@@ -31,6 +31,10 @@
             android:name=".activity.SetTimetableActivity"
             android:label="@string/title_activity_set_timetable" >
         </activity>
+        <activity
+            android:name=".activity.FreeMembersActivity"
+            android:label="@string/title_activity_free_members" >
+        </activity>
     </application>
 
 </manifest>
