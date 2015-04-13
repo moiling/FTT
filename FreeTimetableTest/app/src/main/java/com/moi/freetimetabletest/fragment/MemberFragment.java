@@ -221,7 +221,14 @@ public class MemberFragment extends Fragment implements View.OnClickListener, Ad
                /* Animation rotateAnimation2 = new RotateAnimation(360f, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 rotateAnimation2.setDuration(500);
                 clearMembersButton.startAnimation(rotateAnimation2);*/
-                clearMembers();
+                SnackBar snackbar = new SnackBar((Activity) v.getContext(), "Clear all members?", "Yes", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // 清空table
+                        clearMembers();
+                    }
+                });
+                snackbar.show();
                 /*Animation rotateAnimation4 = new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 rotateAnimation4.setDuration(500);
                 addMemberButton.startAnimation(rotateAnimation4);
