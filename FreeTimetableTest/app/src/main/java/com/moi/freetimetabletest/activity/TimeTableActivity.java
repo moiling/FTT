@@ -39,6 +39,17 @@ public class TimeTableActivity extends ActionBarActivity implements View.OnClick
         context.startActivity(intent);
     }
 
+    public static void actionStart(Context context, String tableName, int tableId, int pager) {
+        Intent intent = new Intent(context, TimeTableActivity.class);
+        intent.putExtra("table_name", tableName);
+        intent.putExtra("table_id", tableId);
+        intent.putExtra("pager", pager);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        context.startActivity(intent);
+    }
+
+    private int pager = 0;
+
     private MaterialMenuDrawable materialMenu;
 
     private String tableName;
@@ -72,6 +83,11 @@ public class TimeTableActivity extends ActionBarActivity implements View.OnClick
         setToolbar();
 
         init();
+        pager = getIntent().getIntExtra("pager", 0);
+        if (pager == 1) {
+            mViewPager.setCurrentItem(1);
+        }
+
     }
 
     private void init() {

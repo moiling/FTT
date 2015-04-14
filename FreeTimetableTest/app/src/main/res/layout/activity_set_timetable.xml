@@ -19,14 +19,46 @@
         android:orientation="vertical">
 
         <!--提示-->
-        <TextView
+        <LinearLayout
+            android:id="@+id/ll_hint"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:background="@color/primary_color"
-            android:textSize="16sp"
-            android:text="Check his/her free time! :)"/>
+            android:gravity="center_horizontal"
+            android:background="@color/secondary_text"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_height="48dp"
+                android:text="Check his/her free time! :)"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                />
+
+            <TextView
+                android:id="@+id/tv_hide_hint"
+                android:layout_width="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_height="48dp"
+                android:text="Don't show it"
+                android:textSize="12sp"
+                android:textColor="@color/accent_color"/>
+
+            <ImageButton
+                android:id="@+id/btn_hide_hint"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:padding="5dp"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:background="@drawable/abc_ic_clear_mtrl_alpha"/>
+
+
+
+            </LinearLayout>
 
 
         <TextView

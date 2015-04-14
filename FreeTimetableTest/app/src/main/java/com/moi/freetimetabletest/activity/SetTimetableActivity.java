@@ -3,11 +3,13 @@ package com.moi.freetimetabletest.activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,6 +20,7 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
@@ -142,6 +145,14 @@ public class SetTimetableActivity extends ActionBarActivity implements View.OnCl
     private ImageButton class_6_10;
     private ImageButton class_6_11;
 
+    private TextView mon;
+    private TextView tue;
+    private TextView wed;
+    private TextView thu;
+    private TextView fri;
+    private TextView sta;
+    private TextView sun;
+
     private List<ImageButton> imageButtonList = new ArrayList<ImageButton>();
 
     private TextView save;
@@ -153,6 +164,17 @@ public class SetTimetableActivity extends ActionBarActivity implements View.OnCl
     private SQLiteDatabase db;
 
     private ContentValues values;
+
+    private ImageButton hideHint;
+
+    private LinearLayout hint;
+
+    private TextView alwaysHideHint;
+
+
+    private SharedPreferences pref;
+
+    private SharedPreferences.Editor editor;
 
 
     @Override
@@ -207,6 +229,16 @@ public class SetTimetableActivity extends ActionBarActivity implements View.OnCl
             }
         }
 
+
+        pref = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean isShow = pref.getBoolean("is_show", true);
+
+        if (isShow) {
+            hint.setVisibility(View.VISIBLE);
+        } else {
+            hint.setVisibility(View.GONE);
+        }
+
         setToolbar();
 
     }
@@ -214,6 +246,27 @@ public class SetTimetableActivity extends ActionBarActivity implements View.OnCl
     private void init() {
         save = (TextView) findViewById(R.id.tv_save);
         save.setOnClickListener(this);
+        hideHint = (ImageButton) findViewById(R.id.btn_hide_hint);
+        hideHint.setOnClickListener(this);
+        hint = (LinearLayout) findViewById(R.id.ll_hint);
+        alwaysHideHint = (TextView) findViewById(R.id.tv_hide_hint);
+        alwaysHideHint.setOnClickListener(this);
+
+        mon = (TextView) findViewById(R.id.tv_0);
+        tue = (TextView) findViewById(R.id.tv_1);
+        wed = (TextView) findViewById(R.id.tv_2);
+        thu = (TextView) findViewById(R.id.tv_3);
+        fri = (TextView) findViewById(R.id.tv_4);
+        sta = (TextView) findViewById(R.id.tv_5);
+        sun = (TextView) findViewById(R.id.tv_6);
+        mon.setOnClickListener(this);
+        tue.setOnClickListener(this);
+        wed.setOnClickListener(this);
+        thu.setOnClickListener(this);
+        fri.setOnClickListener(this);
+        sta.setOnClickListener(this);
+        sun.setOnClickListener(this);
+
     }
 
     private void initImageButtonList() {
@@ -507,7 +560,7 @@ public class SetTimetableActivity extends ActionBarActivity implements View.OnCl
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                TimeTableActivity.actionStart(getApplicationContext(), tableName, tableId);
+                                TimeTableActivity.actionStart(getApplicationContext(), tableName, tableId, 1);
 
                                 overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
                             }
@@ -829,7 +882,96 @@ public class SetTimetableActivity extends ActionBarActivity implements View.OnCl
                 alphaAnimation.setDuration(250);
                 save.startAnimation(alphaAnimation);
                 save.setVisibility(View.GONE);
+                TimeTableActivity.actionStart(getApplicationContext(), tableName, tableId, 1);
+                finish();
                 break;
+
+            case R.id.btn_hide_hint:
+                hint.setVisibility(View.GONE);
+                break;
+
+            case R.id.tv_hide_hint:
+                editor = pref.edit();
+                editor.putBoolean("is_show", false);
+                editor.commit();
+                hint.setVisibility(View.GONE);
+                break;
+
+            case R.id.tv_0:
+                weekClick(0);
+                //for (int i = 0; i < 12; i ++) {
+                    //classClick(0, i);
+
+                //}
+                break;
+            case R.id.tv_1:
+                //for (int i = 0; i < 12; i ++) {
+                    //classClick(1, i);
+                    weekClick(1);
+                //}
+                break;
+            case R.id.tv_2:
+                //for (int i = 0; i < 12; i ++) {
+                    //classClick(2, i);
+                    weekClick(2);
+                //}
+                break;
+            case R.id.tv_3:
+                //for (int i = 0; i < 12; i ++) {
+                    //classClick(3, i);
+                    weekClick(3);
+                //}
+                break;
+            case R.id.tv_4:
+                //for (int i = 0; i < 12; i ++) {
+                    //classClick(4, i);
+                    weekClick(4);
+                //}
+                break;
+            case R.id.tv_5:
+                //for (int i = 0; i < 12; i ++) {
+                    //classClick(5, i);
+                    weekClick(5);
+               // }
+                break;
+            case R.id.tv_6:
+               // for (int i = 0; i < 12; i ++) {
+                    //classClick(6, i);
+                    weekClick(6);
+               // }
+                break;
+        }
+    }
+
+    private void weekClick(int x) {
+        int isAllUnClick = 0;
+        for (int i = 0; i < 12; i++) {
+            if (ischeck[x][i] == 1) {
+                isAllUnClick++;
+            }
+        }
+        Log.d("isAllUnClick", isAllUnClick + "");
+        if (isAllUnClick == 0) {
+            Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
+            //设置动画时间
+            alphaAnimation.setDuration(250);
+            for (int i = 0; i < 12; i++) {
+                imageButtonList.get(x * 12 + i).startAnimation(alphaAnimation);
+                imageButtonList.get(x * 12 + i).setImageDrawable(getResources().getDrawable(R.mipmap.check));
+                ischeck[x][i] = 1;
+            }
+        } else {
+            for (int i = 0; i < 12; i++) {
+                imageButtonList.get(x * 12 + i).setImageDrawable(null);
+                ischeck[x][i] = 0;
+            }
+        }
+        if (save.getVisibility() == View.GONE) {
+            Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
+            //设置动画时间
+            alphaAnimation.setDuration(250);
+            save.startAnimation(alphaAnimation);
+            save.setVisibility(View.VISIBLE);
         }
     }
 
@@ -845,17 +987,19 @@ public class SetTimetableActivity extends ActionBarActivity implements View.OnCl
             imageButtonList.get(line * 12 + row).setImageDrawable(null);
             ischeck[line][row] = 0;
         }
-        Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-        //设置动画时间
-        alphaAnimation.setDuration(250);
-        save.startAnimation(alphaAnimation);
-        save.setVisibility(View.VISIBLE);
+        if (save.getVisibility() == View.GONE) {
+            Animation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
+            //设置动画时间
+            alphaAnimation.setDuration(250);
+            save.startAnimation(alphaAnimation);
+            save.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            TimeTableActivity.actionStart(getApplicationContext(), tableName, tableId);
+            TimeTableActivity.actionStart(getApplicationContext(), tableName, tableId, 1);
             finish();
         }
         return true;

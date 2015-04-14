@@ -31,21 +31,25 @@
            android:layout_height="wrap_content">
        <LinearLayout
            android:id="@+id/ll_create"
+           android:padding="5dp"
            android:orientation="vertical"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:background="@color/accent_color"
            android:visibility="gone">
 
-           <EditText
+           <com.rengwuxian.materialedittext.MaterialEditText
                android:id="@+id/ed_table"
+
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:layout_marginLeft="20dp"
                android:layout_marginRight="20dp"
-               android:textColorHighlight="@color/white"
-               android:textColorHint="@color/white"
-               android:textColorLink="@color/white"/>
+               app:met_floatingLabel="normal"
+               android:hint="Table name"
+               app:met_baseColor="@color/white"
+               app:met_primaryColor="@color/white"
+               />
 
            <RelativeLayout
                android:layout_width="match_parent"

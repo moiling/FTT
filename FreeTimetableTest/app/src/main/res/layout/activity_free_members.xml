@@ -19,9 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center"
-        android:textColor="@color/white"
-        android:background="@color/primary_color"
-        android:textSize="16sp"/>
+        android:textColor="@color/secondary_text"
+        android:textSize="20sp"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -31,7 +30,6 @@
         android:textSize="24sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:textColor="@color/secondary_text"
         android:gravity="center"/>
 

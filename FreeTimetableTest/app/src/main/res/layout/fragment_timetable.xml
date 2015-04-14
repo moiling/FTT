@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
+        <!--<TextView
             android:id="@+id/tv_save"
             android:layout_width="match_parent"
             android:layout_height="48dp"
@@ -16,7 +16,7 @@
             android:textColor="@color/white"
             android:background="@color/green"
             android:textSize="18sp"
-            android:text="Freetime"/>
+            android:text="Freetime"/>-->
 
         <!--表头-->
         <LinearLayout
