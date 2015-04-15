@@ -91,6 +91,17 @@
         materialdesign:animate="true"
         materialdesign:iconDrawable="@mipmap/add_icon" />
 
+    <TextView
+        android:id="@+id/tv_hint_add_member"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text=":(\n\nDon't have a member,\nClick '+' to new!"
+        android:lineSpacingExtra="10dp"
+        android:textSize="18sp"
+        android:textColor="#777"
+        android:visibility="gone"/>
+
     <com.gc.materialdesign.views.ButtonFloat
         android:id="@+id/btn_clear_members"
         android:layout_above="@+id/menu_button"

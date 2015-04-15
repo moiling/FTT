@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.gc.materialdesign.views.ButtonFlat;
 import com.gc.materialdesign.views.ButtonFloat;
@@ -77,6 +78,8 @@ public class MemberFragment extends Fragment implements View.OnClickListener, Ad
 
     private String tableName;
 
+    private TextView textViewHint;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -102,6 +105,10 @@ public class MemberFragment extends Fragment implements View.OnClickListener, Ad
             } while (cursor.moveToNext());
         }
         cursor.close();
+
+        textViewHint = (TextView) view.findViewById(R.id.tv_hint_add_member);
+
+        showHint();
 
         mListView = (BounceListView) view.findViewById(R.id.list_view);
         adapter = new MemberListAdapter(getActivity().getBaseContext(), R.layout.item_table_list, memberList);
@@ -133,9 +140,20 @@ public class MemberFragment extends Fragment implements View.OnClickListener, Ad
 
         relativeLayout = (RelativeLayout) view.findViewById(R.id.rl_create);
 
+
         return view;
     }
 
+    /**
+     * 判断是否显示提示……
+     */
+    private void showHint() {
+        if (memberList.isEmpty()) {
+            textViewHint.setVisibility(View.VISIBLE);
+        } else {
+            textViewHint.setVisibility(View.GONE);
+        }
+    }
 
     @Override
     public void onClick(View v) {
@@ -152,6 +170,7 @@ public class MemberFragment extends Fragment implements View.OnClickListener, Ad
 
             case R.id.bt_cancel:
                 createTableLayout.setVisibility(View.GONE);
+                showHint();
                 inputMethodManager = (InputMethodManager)v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 menuButton.setVisibility(View.VISIBLE);
@@ -218,6 +237,7 @@ public class MemberFragment extends Fragment implements View.OnClickListener, Ad
                 addMemberButton.setVisibility(View.GONE);
                 clearMembersButton.setVisibility(View.GONE);
                 menuButton.setVisibility(View.GONE);
+                textViewHint.setVisibility(View.GONE);
                 break;
 
             case R.id.btn_clear_members:
@@ -281,6 +301,7 @@ public class MemberFragment extends Fragment implements View.OnClickListener, Ad
         editText.setText("");
         inputMethodManager = (InputMethodManager)getActivity().getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+        showHint();
     }
 
     /**
@@ -290,6 +311,7 @@ public class MemberFragment extends Fragment implements View.OnClickListener, Ad
         memberList.clear();
         // 清空数据库
         db.delete("member", "tableId = ?", new String[] { tableId + "" });
+        showHint();
         adapter.notifyDataSetChanged();
     }
 
@@ -326,6 +348,7 @@ public class MemberFragment extends Fragment implements View.OnClickListener, Ad
                 }).start();
                 memberList.remove(position);
                 adapter.notifyDataSetChanged();
+                showHint();
             }
         });
         snackbar.show();

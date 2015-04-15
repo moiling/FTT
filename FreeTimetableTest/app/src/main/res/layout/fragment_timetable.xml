@@ -17,6 +17,16 @@
             android:background="@color/green"
             android:textSize="18sp"
             android:text="Freetime"/>-->
+        <TextView
+            android:id="@+id/tv_hint_add_member"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text=":(\n\nThis table doesn't have any members,\nor,member's free time is unsettled.\n\nYou can click 'MEMBER'\nor,slide to right to new and set!"
+            android:lineSpacingExtra="10dp"
+            android:textSize="18sp"
+            android:textColor="#777"
+            android:visibility="gone"/>
 
         <!--表头-->
         <LinearLayout

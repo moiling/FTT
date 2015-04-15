@@ -143,6 +143,8 @@ public class TimetableFragment extends Fragment implements View.OnClickListener{
     private Bundle savedInstanceState;
     private String tableName;
 
+    private TextView textViewHint;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -407,6 +409,13 @@ public class TimetableFragment extends Fragment implements View.OnClickListener{
         class_6_10.setOnClickListener(this);
         class_6_11 = (ImageButton) view.findViewById(R.id.bt_class_6_11);
         class_6_11.setOnClickListener(this);
+
+        textViewHint = (TextView) view.findViewById(R.id.tv_hint_add_member);
+        if (idList.size() == 0) {
+            textViewHint.setVisibility(View.VISIBLE);
+        } else {
+            textViewHint.setVisibility(View.GONE);
+        }
 
         initImageButtonList();
 
