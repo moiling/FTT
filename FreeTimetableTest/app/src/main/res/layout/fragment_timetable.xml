@@ -12,7 +12,7 @@
             android:id="@+id/tv_save"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:gravity="center"
+            android:gravity="fitXY"
             android:textColor="@color/white"
             android:background="@color/green"
             android:textSize="18sp"
@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text=":(\n\nThis table doesn't have any members,\nor,member's free time is unsettled.\n\nYou can click 'MEMBER'\nor,slide to right to new and set!"
+            android:text="@string/hint_no_member_in_table"
             android:lineSpacingExtra="10dp"
             android:textSize="18sp"
             android:textColor="#777"
@@ -52,7 +52,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="match_parent"
-                android:text="Mon"
+                android:text="@string/mon"
                 android:textColor="#999"
                 android:gravity="center"/>
 
@@ -68,7 +68,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="match_parent"
-                android:text="Tue"
+                android:text="@string/tue"
                 android:textColor="#999"
                 android:gravity="center"/>
 
@@ -84,7 +84,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="match_parent"
-                android:text="Wed"
+                android:text="@string/wed"
                 android:textColor="#999"
                 android:gravity="center"/>
 
@@ -100,7 +100,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="match_parent"
-                android:text="Thu"
+                android:text="@string/thu"
                 android:textColor="#999"
                 android:gravity="center"/>
 
@@ -116,7 +116,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="match_parent"
-                android:text="Fri"
+                android:text="@string/fri"
                 android:textColor="#999"
                 android:gravity="center"/>
 
@@ -132,7 +132,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="match_parent"
-                android:text="Sta"
+                android:text="@string/sta"
                 android:textColor="#999"
                 android:gravity="center"/>
 
@@ -148,7 +148,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="match_parent"
-                android:text="Sun"
+                android:text="@string/sun"
                 android:textColor="#999"
                 android:gravity="center"/>
 
@@ -319,84 +319,84 @@
                         android:id="@+id/bt_class_0_0"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_0_1"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_0_2"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_0_3"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_0_4"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_0_5"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_0_6"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_0_7"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_0_8"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_0_9"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_0_10"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_0_11"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                 </LinearLayout>
@@ -418,84 +418,84 @@
                         android:id="@+id/bt_class_1_0"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_1_1"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_1_2"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_1_3"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_1_4"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_1_5"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_1_6"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_1_7"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_1_8"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_1_9"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_1_10"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_1_11"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                 </LinearLayout>
@@ -517,84 +517,84 @@
                         android:id="@+id/bt_class_2_0"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_2_1"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_2_2"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_2_3"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_2_4"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_2_5"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_2_6"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_2_7"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_2_8"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_2_9"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_2_10"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_2_11"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                 </LinearLayout>
@@ -616,84 +616,84 @@
                         android:id="@+id/bt_class_3_0"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_3_1"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_3_2"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_3_3"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_3_4"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_3_5"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_3_6"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_3_7"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_3_8"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_3_9"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_3_10"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_3_11"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                 </LinearLayout>
@@ -715,84 +715,84 @@
                         android:id="@+id/bt_class_4_0"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_4_1"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_4_2"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_4_3"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_4_4"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_4_5"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_4_6"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_4_7"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_4_8"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_4_9"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_4_10"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_4_11"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                 </LinearLayout>
@@ -814,84 +814,84 @@
                         android:id="@+id/bt_class_5_0"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_5_1"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_5_2"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_5_3"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_5_4"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_5_5"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_5_6"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_5_7"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_5_8"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_5_9"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_5_10"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_5_11"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                 </LinearLayout>
@@ -913,77 +913,77 @@
                         android:id="@+id/bt_class_6_0"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_6_1"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_6_2"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_6_3"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_6_4"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_6_5"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_6_6"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_6_7"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_6_8"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_6_9"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
                         android:id="@+id/bt_class_6_10"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:scaleType="center"
+                        android:scaleType="fitXY"
                         android:background="@null"/>
 
                     <ImageButton
@@ -999,6 +999,7 @@
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
                     android:background="#bbb"/>
+
 
 
             </LinearLayout>

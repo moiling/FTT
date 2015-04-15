@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">FTT</string>
 
@@ -6,11 +7,10 @@
     <string name="title_activity_welcome">WelcomeActivity</string>
     <string name="title_activity_time_table">TimeTableActivity</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_set_timetable">SetTimetableActivity</string>
     <string name="title_activity_free_members">FreeMembersActivity</string>
-<!--
     <string name="hint_table_name">Table name</string>
     <string name="cancel">CANCEL</string>
     <string name="hint_no_table">:(\n\nDon\'t have a table,\nClick \'+\' to new!</string>
@@ -36,32 +36,7 @@
     <string name="yes">YES</string>
     <string name="delete_this_item">Delete this item?</string>
     <string name="clear_all_members">Clear all members?</string>
-    <string name="delete_this_member">Delete this member?</string>-->
+    <string name="delete_this_member">Delete this member?</string>
 
-    <string name="hint_table_name">空闲表名称</string>
-    <string name="cancel">取消</string>
-    <string name="hint_no_table">:(\n\n没有任何表，\n请点击加号新建！</string>
-    <string name="hint_set_table">点击表格选择他/她的空闲时间 :)</string>
-    <string name="dont_show">不再提示</string>
-    <string name="save">保存</string>
-    <string name="mon">一</string>
-    <string name="tue">二</string>
-    <string name="wed">三</string>
-    <string name="thu">四</string>
-    <string name="fri">五</string>
-    <string name="sta">六</string>
-    <string name="sun">日</string>
-    <string name="table">空闲表</string>
-    <string name="member">成员</string>
-    <string name="hello">你好</string>
-    <string name="by">by bipa</string>
-    <string name="member_name">成员名称</string>
-    <string name="create">创建</string>
-    <string name="hint_no_member">:(\n\n没有任何成员，\n请点击加号新建！</string>
-    <string name="hint_no_member_in_table">:(\n\n这个表还没有成员，\n或者，没有设置成员的空闲时间.\n\n你可以点击右上角的"成员"\n或者，滑向右边去创建和设置！</string>
-    <string name="clear_all_item">确定清空所有表？</string>
-    <string name="yes">是的</string>
-    <string name="delete_this_item">确定删除该表？</string>
-    <string name="clear_all_members">确定清空所有成员？</string>
-    <string name="delete_this_member">确定删除该成员？</string>
+
 </resources>

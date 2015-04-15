@@ -32,7 +32,7 @@
                 android:layout_height="48dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="TABLE"
+                android:text="@string/table"
                 android:textSize="14sp"/>
 
             <TextView
@@ -41,7 +41,7 @@
                 android:layout_height="48dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="MEMBER"
+                android:text="@string/member"
                 android:textSize="14sp"/>
 
             </LinearLayout>

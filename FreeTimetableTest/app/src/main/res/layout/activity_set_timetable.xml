@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:gravity="center_vertical"
                 android:layout_height="48dp"
-                android:text="Check his/her free time! :)"
+                android:text="@string/hint_set_table"
                 android:textSize="16sp"
                 android:textColor="@color/white"
                 />
@@ -43,7 +43,7 @@
                 android:gravity="center_vertical"
                 android:layout_marginLeft="20dp"
                 android:layout_height="48dp"
-                android:text="Don't show it"
+                android:text="@string/dont_show"
                 android:textSize="12sp"
                 android:textColor="@color/accent_color"/>
 
@@ -69,7 +69,7 @@
             android:textColor="@color/white"
             android:background="@color/green"
             android:textSize="18sp"
-            android:text="SAVE"
+            android:text="@string/save"
             android:visibility="gone"/>
 
         <!--表头-->
@@ -96,7 +96,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="match_parent"
-                android:text="Mon"
+                android:text="@string/mon"
                 android:textColor="#999"
                 android:gravity="center"/>
 
@@ -112,7 +112,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="match_parent"
-                android:text="Tue"
+                android:text="@string/tue"
                 android:textColor="#999"
                 android:gravity="center"/>
 
@@ -128,7 +128,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="match_parent"
-                android:text="Wed"
+                android:text="@string/wed"
                 android:textColor="#999"
                 android:gravity="center"/>
 
@@ -144,7 +144,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="match_parent"
-                android:text="Thu"
+                android:text="@string/thu"
                 android:textColor="#999"
                 android:gravity="center"/>
 
@@ -160,7 +160,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="match_parent"
-                android:text="Fri"
+                android:text="@string/fri"
                 android:textColor="#999"
                 android:gravity="center"/>
 
@@ -176,7 +176,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="match_parent"
-                android:text="Sta"
+                android:text="@string/sta"
                 android:textColor="#999"
                 android:gravity="center"/>
 
@@ -192,7 +192,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="match_parent"
-                android:text="Sun"
+                android:text="@string/sun"
                 android:textColor="#999"
                 android:gravity="center"/>
 

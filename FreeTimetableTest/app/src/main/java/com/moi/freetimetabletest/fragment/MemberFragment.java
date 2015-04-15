@@ -246,7 +246,7 @@ public class MemberFragment extends Fragment implements View.OnClickListener, Ad
                 clearMembersButton.startAnimation(rotateAnimation2);*/
                 Animation shake = AnimationUtils.loadAnimation(getActivity().getApplicationContext(),R.anim.shake);
                 mListView.startAnimation(shake);
-                SnackBar snackbar = new SnackBar((Activity) v.getContext(), "Clear all members?", "Yes", new View.OnClickListener() {
+                SnackBar snackbar = new SnackBar((Activity) v.getContext(), getResources().getString(R.string.clear_all_members), getResources().getString(R.string.yes), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         // 清空table
@@ -319,7 +319,7 @@ public class MemberFragment extends Fragment implements View.OnClickListener, Ad
     public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
         Animation shake = AnimationUtils.loadAnimation(view.getContext(), R.anim.shake);
         view.startAnimation(shake);
-        SnackBar snackbar = new SnackBar((Activity) view.getContext(), "Delete this member?", "Yes", new View.OnClickListener() {
+        SnackBar snackbar = new SnackBar((Activity) view.getContext(), getResources().getString(R.string.delete_this_member), getResources().getString(R.string.yes), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

@@ -219,7 +219,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     case X:
                         Animation shake = AnimationUtils.loadAnimation(v.getContext(),R.anim.shake);
                         mListView.startAnimation(shake);
-                        snackbar = new SnackBar((Activity) v.getContext(), "Clear all items?", "Yes", new View.OnClickListener() {
+                        snackbar = new SnackBar((Activity) v.getContext(), getResources().getString(R.string.clear_all_item), getResources().getString(R.string.yes), new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 // 清空table
@@ -353,7 +353,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
         Animation shake = AnimationUtils.loadAnimation(view.getContext(),R.anim.shake);
         view.startAnimation(shake);
-        SnackBar snackbar = new SnackBar((Activity) view.getContext(), "Delete this item?", "Yes", new View.OnClickListener() {
+        SnackBar snackbar = new SnackBar((Activity) view.getContext(), getResources().getString(R.string.delete_this_item), getResources().getString(R.string.yes), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

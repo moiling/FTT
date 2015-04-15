@@ -46,7 +46,7 @@
                android:layout_marginLeft="20dp"
                android:layout_marginRight="20dp"
                app:met_floatingLabel="normal"
-               android:hint="Table name"
+               android:hint="@string/hint_table_name"
                app:met_baseColor="@color/white"
                app:met_primaryColor="@color/white"
                />
@@ -62,7 +62,7 @@
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:background="@color/white"
-                   android:text="CREATE"/>
+                   android:text="@string/create"/>
 
                <com.gc.materialdesign.views.ButtonFlat
                    android:id="@+id/bt_cancel"
@@ -71,7 +71,7 @@
                    android:layout_alignParentRight="true"
                    android:layout_marginRight="80dp"
                    android:background="@color/white"
-                   android:text="CANCEL"/>
+                   android:text="@string/cancel"/>
 
                </RelativeLayout>
            </LinearLayout>
@@ -82,7 +82,7 @@
            android:layout_width="match_parent"
            android:layout_height="match_parent"
            android:gravity="center"
-           android:text=":(\n\nDon't have a table,\nClick '+' to new!"
+           android:text="@string/hint_no_table"
            android:lineSpacingExtra="10dp"
            android:textSize="18sp"
            android:textColor="#777"
