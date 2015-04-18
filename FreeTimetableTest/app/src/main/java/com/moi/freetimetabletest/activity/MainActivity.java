@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -91,6 +92,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     private List<Integer> idList = new ArrayList<Integer>();
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -163,7 +166,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         cancelButton.setOnClickListener(this);
 
         relativeLayout = (RelativeLayout) findViewById(R.id.rl_create);
-
 
 
 
@@ -448,4 +450,29 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     }
 
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (createTableLayout.getVisibility() == View.VISIBLE) {
+                createTableLayout.setVisibility(View.GONE);
+                showHint();
+                inputMethodManager = (InputMethodManager)getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+                buttonFloat.setVisibility(View.VISIBLE);
+                //初始化
+                Animation alphaAnimation1 = new AlphaAnimation(0.1f, 1.0f);
+                //设置动画时间
+                alphaAnimation1.setDuration(500);
+                buttonFloat.startAnimation(alphaAnimation1);
+
+            }
+            if (snackbar.isShowing()) {
+                snackbar.dismiss();
+                if (materialMenu.getIconState() != MaterialMenuDrawable.IconState.BURGER) {
+                    materialMenu.animateIconState(MaterialMenuDrawable.IconState.BURGER, false);
+                }
+            }
+        }
+        return super.onTouchEvent(event);
+    }
 }
