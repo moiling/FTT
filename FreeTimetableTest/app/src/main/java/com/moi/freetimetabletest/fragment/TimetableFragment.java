@@ -169,34 +169,34 @@ public class TimetableFragment extends Fragment implements View.OnClickListener{
         db = dbHelper.getWritableDatabase();
         values = new ContentValues();
 
-                // 绑定list
-                Cursor cursor = db.rawQuery("select * from member where tableId=?",
-                        new String[]{tableId + ""});
-                if (cursor.moveToFirst()) {
-                    do {
-                        int id = cursor.getInt(cursor.getColumnIndex("id"));
-                        idList.add(id);
-                    } while (cursor.moveToNext());
-                }
-                cursor.close();
+        // 绑定list
+        Cursor cursor = db.rawQuery("select * from member where tableId=?",
+                new String[]{tableId + ""});
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                idList.add(id);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
 
-                isFree = new String[7][12][idList.size()];
+        isFree = new String[7][12][idList.size()];
 
-                cursor = db.rawQuery("select * from member where tableId=?",
-                        new String[]{tableId + ""});
-                if (cursor.moveToFirst()) {
-                    do {
-                        for (int i = 0; i < 7; i++) {
-                            for (int j = 0; j < 12; j++) {
-                                if (cursor.getInt(cursor.getColumnIndex("class_" + i + "_" + j)) == 1) {
-                                    isFree[i][j][isFreeNumber[i][j]] = cursor.getString(cursor.getColumnIndex("member_name"));
-                                    isFreeNumber[i][j]++;
-                                }
-                            }
+        cursor = db.rawQuery("select * from member where tableId=?",
+                new String[]{tableId + ""});
+        if (cursor.moveToFirst()) {
+            do {
+                for (int i = 0; i < 7; i++) {
+                    for (int j = 0; j < 12; j++) {
+                        if (cursor.getInt(cursor.getColumnIndex("class_" + i + "_" + j)) == 1) {
+                            isFree[i][j][isFreeNumber[i][j]] = cursor.getString(cursor.getColumnIndex("member_name"));
+                            isFreeNumber[i][j]++;
                         }
-                    } while (cursor.moveToNext());
+                    }
                 }
-                cursor.close();
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
 
         // 获取星期
         calendar = Calendar.getInstance();
